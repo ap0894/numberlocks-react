@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg id="Layer_1" style="enable-background:new 0 0 90.7 90.7;" x="0px" y="0px" viewBox="0 0 90.7 90.7" xmlns="http://www.w3.org/2000/svg">
+  <style type="text/css">
+	.st0{fill:#FFFFFF;}
+	.st1{fill:#29ADE4;}
+	.st2{fill:#29ADE4;stroke:#FFFFFF;stroke-width:2;stroke-miterlimit:10;}
+</style>
+  <path class="st1" d="M 12.184 90.521 L 12.184 61.782 C 12.184 56.225 16.789 51.62 22.346 51.62 L 71.25 51.62 C 76.807 51.62 81.412 56.225 81.412 61.782 L 81.412 90.521"/>
+  <circle class="st2" cx="46.798" cy="31.296" r="29.533" style="stroke: rgb(125, 134, 165); stroke-width: 6;"/>
+</svg>
