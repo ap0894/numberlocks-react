@@ -1,0 +1,190 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal {
+  background: linear-gradient(135deg, #394264 0%, #50597b 100%);
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+  text-align: center;
+}
+
+.header {
+  margin-bottom: 30px;
+}
+
+.title {
+  font-family: 'Raleway', 'Orbitron', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.levelNum {
+  color: #29ace4;
+  font-size: 1.2em;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.scoreContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+.movesLabel {
+  font-size: 18px;
+  margin: 0;
+  color: #ffffff;
+}
+
+.movesValue {
+  font-weight: bold;
+  color: #29ace4;
+  font-size: 1.2em;
+}
+
+.starsContainer {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+.starIcon {
+  width: 50px;
+  height: 50px;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+}
+
+.gameOverText {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #ffffff;
+  margin: 20px 0;
+}
+
+.buttons {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.retryButton,
+.nextButton,
+.cancelButton {
+  font-family: 'Raleway', 'Orbitron', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  min-width: 120px;
+}
+
+.retryButton {
+  background: linear-gradient(135deg, #cc324b 0%, #e64c65 100%);
+  color: #ffffff;
+}
+
+.nextButton {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  color: #ffffff;
+}
+
+.cancelButton {
+  background: linear-gradient(135deg, #7d86a5 0%, #a0a8c0 100%);
+  color: #ffffff;
+}
+
+.retryButton:hover,
+.nextButton:hover,
+.cancelButton:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.retryButton:active,
+.nextButton:active,
+.cancelButton:active {
+  transform: translateY(0);
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .modal {
+    padding: 25px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .movesLabel {
+    font-size: 16px;
+  }
+
+  .starIcon {
+    width: 40px;
+    height: 40px;
+  }
+
+  .retryButton,
+  .nextButton,
+  .cancelButton {
+    font-size: 14px;
+    padding: 10px 24px;
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 360px) {
+  .modal {
+    padding: 20px;
+  }
+
+  .title {
+    font-size: 18px;
+  }
+
+  .starIcon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .buttons {
+    flex-direction: column;
+  }
+
+  .retryButton,
+  .nextButton,
+  .cancelButton {
+    width: 100%;
+  }
+}

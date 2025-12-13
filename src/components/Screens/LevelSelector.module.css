@@ -1,0 +1,293 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1f253d 0%, #2c3e50 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.header {
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backButton {
+  position: absolute;
+  left: 0;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.backButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.backIcon {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+.title {
+  font-family: 'Raleway', 'Orbitron', sans-serif;
+  font-size: 28px;
+  background-color: #1a4e95;
+  border-radius: 6px;
+  padding: 10px 20px;
+  color: #ffffff;
+  letter-spacing: 2px;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  flex: 1;
+  text-align: center;
+}
+
+.statsBar {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.totalStars {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+.keyIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.content {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 30px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.levelsContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.levelsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  width: 100%;
+}
+
+.levelCard {
+  aspect-ratio: 1;
+  background: linear-gradient(135deg, #394264 0%, #50597b 100%);
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+}
+
+.levelCard:hover:not(.locked) {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.levelCard.locked {
+  background: linear-gradient(135deg, #2b334f 0%, #394264 100%);
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.levelCard.current {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  box-shadow: 0 0 20px rgba(17, 153, 142, 0.5);
+}
+
+.levelNumber {
+  font-size: 36px;
+  font-weight: bold;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.lockIcon {
+  width: 40px;
+  height: 40px;
+}
+
+.starsContainer {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.starIcon {
+  width: 18px;
+  height: 18px;
+}
+
+.newBadge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: linear-gradient(135deg, #fcb150 0%, #ff9800 100%);
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
+  padding: 20px 0;
+}
+
+.navButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.navButton:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.navButton:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.navIcon {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+.navIcon.next {
+  transform: rotate(180deg);
+}
+
+.pageIndicator {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot:hover {
+  background: rgba(255, 255, 255, 0.5);
+  transform: scale(1.2);
+}
+
+.dot.activeDot {
+  background: #ffffff;
+  width: 12px;
+  height: 12px;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .levelsGrid {
+    gap: 12px;
+  }
+
+  .levelNumber {
+    font-size: 30px;
+  }
+
+  .lockIcon {
+    width: 35px;
+    height: 35px;
+  }
+
+  .starIcon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 360px) {
+  .levelsGrid {
+    gap: 10px;
+  }
+
+  .levelNumber {
+    font-size: 24px;
+  }
+
+  .lockIcon {
+    width: 30px;
+    height: 30px;
+  }
+
+  .starIcon {
+    width: 14px;
+    height: 14px;
+  }
+}

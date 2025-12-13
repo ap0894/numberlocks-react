@@ -1,0 +1,211 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal {
+  background: linear-gradient(135deg, #394264 0%, #50597b 100%);
+  border-radius: 16px;
+  padding: 30px;
+  max-width: 450px;
+  width: 100%;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+  color: #ffffff;
+}
+
+.header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.title {
+  font-family: 'Raleway', 'Orbitron', sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0;
+  color: #ffffff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+}
+
+.settingInfo {
+  flex: 1;
+  text-align: left;
+}
+
+.settingLabel {
+  font-size: 16px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+
+.settingDescription {
+  font-size: 13px;
+  color: #a0a8c0;
+  line-height: 1.4;
+}
+
+.toggle {
+  width: 60px;
+  height: 32px;
+  border-radius: 16px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.toggleOn {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+}
+
+.toggleOff {
+  background: linear-gradient(135deg, #cc324b 0%, #e64c65 100%);
+}
+
+.toggleThumb {
+  width: 26px;
+  height: 26px;
+  background: #ffffff;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.toggleOn .toggleThumb {
+  left: calc(100% - 29px);
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+  margin: 10px 0;
+}
+
+.resetButton {
+  font-family: 'Raleway', 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #cc324b 0%, #e64c65 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  flex-shrink: 0;
+}
+
+.resetButton:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.resetButton:active {
+  transform: translateY(0);
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.closeButton {
+  font-family: 'Raleway', 'Orbitron', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 12px 40px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: linear-gradient(135deg, #7d86a5 0%, #a0a8c0 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.closeButton:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.closeButton:active {
+  transform: translateY(0);
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .modal {
+    padding: 25px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
+
+  .settingLabel {
+    font-size: 14px;
+  }
+
+  .settingDescription {
+    font-size: 12px;
+  }
+
+  .resetButton {
+    font-size: 12px;
+    padding: 6px 16px;
+  }
+
+  .closeButton {
+    font-size: 14px;
+    padding: 10px 32px;
+  }
+}
+
+@media (max-width: 360px) {
+  .modal {
+    padding: 20px;
+  }
+
+  .setting {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .toggle,
+  .resetButton {
+    width: 100%;
+  }
+}

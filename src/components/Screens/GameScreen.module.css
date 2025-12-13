@@ -1,0 +1,168 @@
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1f253d 0%, #2c3e50 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.header {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.backButton,
+.pauseButton {
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.backButton:hover,
+.pauseButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+.backIcon,
+.pauseIcon {
+  width: 22px;
+  height: 22px;
+  filter: brightness(0) invert(1);
+}
+
+.levelInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px;
+}
+
+.levelName {
+  font-family: 'Raleway', 'Orbitron', sans-serif;
+  font-size: 24px;
+  color: #ffffff;
+  margin: 0;
+  font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.gameWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.footer {
+  width: 100%;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: auto;
+}
+
+.sliderWrapper {
+  width: 100%;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.resetButton {
+  background: linear-gradient(135deg, #cc324b 0%, #e64c65 100%);
+  border: none;
+  border-radius: 8px;
+  padding: 12px 24px;
+  color: #ffffff;
+  font-family: 'Raleway', 'Orbitron', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.resetButton:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.resetButton:active {
+  transform: translateY(0);
+}
+
+.resetIcon {
+  width: 20px;
+  height: 20px;
+  filter: brightness(0) invert(1);
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .container {
+    padding: 15px;
+  }
+
+  .levelName {
+    font-size: 20px;
+  }
+
+  .backButton,
+  .pauseButton {
+    width: 40px;
+    height: 40px;
+  }
+
+  .backIcon,
+  .pauseIcon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .resetButton {
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .resetIcon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 360px) {
+  .levelName {
+    font-size: 18px;
+  }
+
+  .resetButton {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+}
