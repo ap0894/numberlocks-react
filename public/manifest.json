@@ -1,0 +1,35 @@
+{
+  "name": "Number Locks",
+  "short_name": "NumLocks",
+  "description": "A puzzle game where you swipe numbered tiles to subtract them from each other",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1f253d",
+  "theme_color": "#1a4e95",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "/img/padlocknew.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon-32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "/favicon-16x16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    }
+  ],
+  "categories": ["games", "puzzle"],
+  "screenshots": []
+}
