@@ -1,0 +1,71 @@
+.app-container {
+  width: 100%;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1f253d 0%, #2c3e50 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.title {
+  font-family: 'Raleway', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: 2px;
+  margin: 0;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.highlight {
+  color: #3498db;
+  font-size: 3rem;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  vertical-align: middle;
+  margin: 0 5px;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.game-wrapper {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.controls-wrapper {
+  width: 100%;
+  max-width: 400px;
+  margin-top: 20px;
+}
+
+/* Responsive design */
+@media (max-width: 600px) {
+  .title {
+    font-size: 2rem;
+  }
+
+  .highlight {
+    font-size: 2.5rem;
+  }
+
+  .logo {
+    width: 30px;
+    height: 30px;
+  }
+
+  .app-container {
+    padding: 10px;
+  }
+}

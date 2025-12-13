@@ -1,0 +1,31 @@
+/* Grid Lines Styles */
+.linesContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.horizontalLine,
+.verticalLine,
+.diagonalLine {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.05);
+  pointer-events: none;
+}
+
+.horizontalLine {
+  height: 1px;
+  left: 0;
+}
+
+.verticalLine {
+  width: 1px;
+  top: 0;
+}
+
+.diagonalLine {
+  height: 1px;
+  opacity: 0.3;
+}

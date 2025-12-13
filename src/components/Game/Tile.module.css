@@ -1,0 +1,92 @@
+/* Tile Component Styles */
+.tile {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  font-weight: bold;
+  transition: all 0.2s ease;
+}
+
+.tileMovable {
+  cursor: grab;
+}
+
+.tileMovable:active {
+  cursor: grabbing;
+  transform: scale(1.05);
+}
+
+.tileValue {
+  font-size: 1.5rem;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+/* Completed tile */
+.tileComplete {
+  background: transparent;
+  box-shadow: none;
+  cursor: default;
+  pointer-events: none;
+}
+
+.tickIcon {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+/* Pair highlighting (matching adjacent tiles) */
+.pair {
+  background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+  box-shadow: 0 0 20px rgba(56, 239, 125, 0.6);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(56, 239, 125, 0.6);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(56, 239, 125, 0.9);
+  }
+}
+
+/* Isolated tile (game over state) */
+.isolated {
+  background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+  box-shadow: 0 0 20px rgba(235, 51, 73, 0.6);
+  animation: shake 0.5s;
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-5px);
+  }
+  20%, 40%, 60%, 80% {
+    transform: translateX(5px);
+  }
+}
+
+/* Responsive sizing */
+@media (max-width: 768px) {
+  .tileValue {
+    font-size: 1.2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tileValue {
+    font-size: 1rem;
+  }
+}

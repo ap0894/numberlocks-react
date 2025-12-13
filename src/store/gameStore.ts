@@ -3,7 +3,7 @@ import { devtools } from 'zustand/middleware';
 import { Tile, SwipeDirection } from '../types/level.types';
 import { GameState } from '../types/game.types';
 import { LEVELS } from '../config/levels';
-import { processTileMove, checkGameOver, checkForPairs } from '../utils/gameLogic';
+import { processTileMove, checkGameOver } from '../utils/gameLogic';
 import { calculateStars } from '../utils/starCalculator';
 
 interface GameStore extends GameState {

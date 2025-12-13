@@ -1,0 +1,117 @@
+/* Moves Slider Component */
+.sliderContainer {
+  width: 100%;
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 12px;
+}
+
+.sliderLabel {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #fff;
+}
+
+.sliderTrack {
+  position: relative;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  margin: 30px 0;
+}
+
+.currentIndicator {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+}
+
+.indicatorDot {
+  width: 16px;
+  height: 16px;
+  background: #4a90e2;
+  border: 3px solid #fff;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(74, 144, 226, 0.6);
+}
+
+.marker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  z-index: 3;
+}
+
+.markerIcon {
+  width: 20px;
+  height: 20px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.markerLabel {
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.5);
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.threeStarMarker .markerIcon {
+  filter: drop-shadow(0 0 6px rgba(76, 217, 100, 0.8));
+}
+
+.twoStarMarker .markerIcon {
+  filter: drop-shadow(0 0 6px rgba(255, 204, 0, 0.8));
+}
+
+.oneStarMarker .markerIcon {
+  opacity: 0.6;
+}
+
+.starDisplay {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.starIcon {
+  width: 32px;
+  height: 32px;
+  transition: transform 0.2s;
+}
+
+.starIcon:hover {
+  transform: scale(1.1);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .sliderContainer {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .sliderLabel {
+    font-size: 1rem;
+  }
+
+  .markerIcon {
+    width: 16px;
+    height: 16px;
+  }
+
+  .starIcon {
+    width: 24px;
+    height: 24px;
+  }
+}

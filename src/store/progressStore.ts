@@ -13,16 +13,6 @@ interface ProgressStore extends ProgressState {
   isLevelUnlocked: (levelId: string) => boolean;
 }
 
-// Helper to parse level number from level ID
-function parseLevelNumber(levelId: string): number {
-  // Handle tutorial levels (level-1, level-2, etc.)
-  if (levelId.startsWith('level-')) {
-    return parseInt(levelId.replace('level-', ''), 10);
-  }
-  // Handle regular levels (level1, level2, etc.)
-  return parseInt(levelId.replace('level', ''), 10);
-}
-
 export const useProgressStore = create<ProgressStore>()(
   devtools(
     persist(

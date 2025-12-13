@@ -1,5 +1,4 @@
 import { LEVELS } from '../config/levels';
-import { StarThreshold } from '../types/level.types';
 
 /**
  * Calculate star rating based on number of moves
@@ -19,7 +18,6 @@ export function calculateStars(moves: number, levelId: string): number {
   const twoMin = typeof two === 'number' ? two : two.min;
   const twoMax = typeof two === 'number' ? two : two.max;
   const oneMin = typeof one === 'number' ? one : one.min;
-  const oneMax = typeof one === 'number' ? one : one.max;
 
   // Edge case: two === three (from index.js:227-233)
   // This happens in some levels where 2-star and 3-star thresholds are the same

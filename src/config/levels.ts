@@ -1,14 +1,5 @@
 import { Level } from '../types/level.types';
 
-// Helper function to parse threshold values (handles ranges like "12-13")
-function parseThreshold(value: string): number | { min: number; max: number } {
-  if (value.includes('-')) {
-    const [min, max] = value.split('-').map(Number);
-    return { min, max };
-  }
-  return Number(value);
-}
-
 export const LEVELS: Record<string, Level> = {
   'level-1': {
     id: 'level-1',

@@ -1,27 +1,38 @@
 import { useEffect } from 'react';
 import { initializeCapacitor } from './services/CapacitorService';
+import { GameBoard } from './components/Game/GameBoard';
+import { MovesSlider } from './components/Game/MovesSlider';
+import { useGameStore } from './store/gameStore';
+import './App.css';
 
 function App() {
+  const { moves, stars, currentLevel } = useGameStore();
+
   useEffect(() => {
     // Initialize Capacitor plugins on mount
     initializeCapacitor();
   }, []);
 
   return (
-    <div className="container">
-      <div>
+    <div className="app-container">
+      <div className="header">
         <h1 className="title">
-          NUM<span>6</span>ER L<img className="logo" src="/img/padlocknew.svg" alt="Lock" />CKS
+          NUM<span className="highlight">6</span>ER L
+          <img className="logo" src="/img/padlocknew.svg" alt="Lock" />
+          CKS
         </h1>
       </div>
-      <div id="challenge">
-        <h3 className="heading">Choose a challenge:</h3>
-        <div className="icon">
-          <div id="campaign" className="square">
-            <img className="centre" src="/img/player.svg" alt="One Player" />
-            <span className="bottom">One Player</span>
-          </div>
-        </div>
+
+      <div className="game-wrapper">
+        <GameBoard levelId={currentLevel || 'level1'} />
+      </div>
+
+      <div className="controls-wrapper">
+        <MovesSlider
+          moves={moves}
+          stars={stars}
+          levelId={currentLevel || 'level1'}
+        />
       </div>
     </div>
   );
