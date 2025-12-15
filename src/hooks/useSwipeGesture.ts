@@ -1,5 +1,5 @@
-import { useDrag } from '@use-gesture/react';
-import { SwipeDirection } from '../types/level.types';
+import {useDrag} from '@use-gesture/react';
+import {SwipeDirection} from '../types/level.types';
 
 interface SwipeConfig {
   onSwipe: (direction: SwipeDirection) => void;
@@ -15,73 +15,76 @@ interface SwipeConfig {
 export function useSwipeGesture({
   onSwipe,
   enableDiagonal = false,
-  threshold = 10,
-  velocity = 0.1
+  threshold = 5,
+  velocity = 0.05
 }: SwipeConfig) {
-  const bind = useDrag(
-    ({ movement: [mx, my], velocity: [vx, vy], last, cancel }) => {
-      // Only process on gesture end
-      if (!last) return;
+    return useDrag(
+      ({movement: [mx, my], velocity: [vx, vy], last, cancel}) => {
+          // Only process on gesture end
+          if (!last) return;
 
-      // Check if movement exceeds threshold
-      const distance = Math.sqrt(mx * mx + my * my);
-      if (distance < threshold) {
-        cancel();
-        return;
+          // Check if movement exceeds minimum threshold
+          const distance = Math.sqrt(mx * mx + my * my);
+          if (distance < threshold) {
+              cancel();
+              return;
+          }
+
+          // More lenient velocity check - accept if either distance is good OR velocity is good
+          const totalVelocity = Math.sqrt(vx * vx + vy * vy);
+          const hasGoodDistance = distance >= threshold * 3;
+          const hasGoodVelocity = totalVelocity >= velocity;
+
+          // Require either sufficient distance OR sufficient velocity
+          if (!hasGoodDistance && !hasGoodVelocity) {
+              cancel();
+              return;
+          }
+
+          // Calculate angle in degrees
+          // atan2 returns angle from -180 to 180
+          const angle = Math.atan2(my, mx) * (180 / Math.PI);
+
+          let direction: SwipeDirection;
+
+          if (enableDiagonal) {
+              // 8-directional detection (matching index.js:1526-1541)
+              if (angle > -157.5 && angle < -112.5) {
+                  direction = 'upleft';
+              } else if (angle > -67.5 && angle < -22.5) {
+                  direction = 'upright';
+              } else if (angle > 22.5 && angle < 67.5) {
+                  direction = 'downright';
+              } else if (angle > 112.5 && angle < 157.5) {
+                  direction = 'downleft';
+              } else if (Math.abs(mx) > Math.abs(my)) {
+                  // Horizontal swipe
+                  direction = mx > 0 ? 'right' : 'left';
+              } else {
+                  // Vertical swipe
+                  direction = my > 0 ? 'down' : 'up';
+              }
+          } else {
+              // 4-directional detection (levels 1-10)
+              if (Math.abs(mx) > Math.abs(my)) {
+                  // Horizontal swipe
+                  direction = mx > 0 ? 'right' : 'left';
+              } else {
+                  // Vertical swipe
+                  direction = my > 0 ? 'down' : 'up';
+              }
+          }
+
+          onSwipe(direction);
+      },
+      {
+          // Gesture configuration
+          filterTaps: true, // Don't trigger on taps
+          preventScroll: true, // Prevent scrolling while swiping
+          axis: undefined, // Allow all directions
+          pointer: {touch: true, mouse: true} // Enable both touch and mouse
       }
-
-      // Check if velocity is sufficient
-      const totalVelocity = Math.sqrt(vx * vx + vy * vy);
-      if (totalVelocity < velocity) {
-        cancel();
-        return;
-      }
-
-      // Calculate angle in degrees
-      // atan2 returns angle from -180 to 180
-      const angle = Math.atan2(my, mx) * (180 / Math.PI);
-
-      let direction: SwipeDirection;
-
-      if (enableDiagonal) {
-        // 8-directional detection (matching index.js:1526-1541)
-        if (angle > -157.5 && angle < -112.5) {
-          direction = 'upleft';
-        } else if (angle > -67.5 && angle < -22.5) {
-          direction = 'upright';
-        } else if (angle > 22.5 && angle < 67.5) {
-          direction = 'downright';
-        } else if (angle > 112.5 && angle < 157.5) {
-          direction = 'downleft';
-        } else if (Math.abs(mx) > Math.abs(my)) {
-          // Horizontal swipe
-          direction = mx > 0 ? 'right' : 'left';
-        } else {
-          // Vertical swipe
-          direction = my > 0 ? 'down' : 'up';
-        }
-      } else {
-        // 4-directional detection (levels 1-10)
-        if (Math.abs(mx) > Math.abs(my)) {
-          // Horizontal swipe
-          direction = mx > 0 ? 'right' : 'left';
-        } else {
-          // Vertical swipe
-          direction = my > 0 ? 'down' : 'up';
-        }
-      }
-
-      onSwipe(direction);
-    },
-    {
-      // Gesture configuration
-      filterTaps: true, // Don't trigger on taps
-      preventScroll: true, // Prevent scrolling while swiping
-      axis: undefined // Allow all directions
-    }
   );
-
-  return bind;
 }
 
 /**

@@ -67,17 +67,19 @@ export function processTileMove(
   // Update tiles
   const updatedTiles = tiles.map((t) => {
     // Mark target tile as complete (it's being removed)
+    // Only show tick if both tiles are eliminated (newValue === 0)
     if (t.id === targetTile.id) {
-      return { ...t, isComplete: true };
+      return { ...t, isComplete: true, showTick: newValue === 0 };
     }
 
     // Update source tile
     if (t.id === sourceTile.id) {
       if (newValue === 0) {
-        // Both tiles eliminated
+        // Both tiles eliminated - don't show tick on source
         return {
           ...t,
           isComplete: true,
+          showTick: false,
           position: targetPosition
         };
       }
@@ -193,15 +195,29 @@ export function checkGameOver(
 
 /**
  * Get grid size from tile count
+ * For levels with less than 4 tiles, use straight line layout
  */
 export function getGridSize(tileCount: number): number {
+  if (tileCount < 4) {
+    // Straight line layout for tutorial levels 1-2
+    return tileCount;
+  }
   return Math.sqrt(tileCount);
 }
 
 /**
  * Calculate position from index
+ * For grids with less than 4 tiles, positions are laid out horizontally in a single row
  */
-export function indexToPosition(index: number, gridSize: number): Position {
+export function indexToPosition(index: number, gridSize: number, tileCount: number): Position {
+  if (tileCount < 4) {
+    // Straight horizontal line: all tiles in row 1
+    return {
+      row: 0,
+      col: index
+    };
+  }
+  // Standard grid layout
   return {
     row: Math.floor(index / gridSize),
     col: index % gridSize

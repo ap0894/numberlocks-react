@@ -1,41 +1,52 @@
-import { TILE_SIZE } from '../../config/constants';
+import { TILE_SIZE } from '@/config/constants.ts';
 import styles from './GridLines.module.css';
 
 interface GridLinesProps {
   size: number;
   enableDiagonal: boolean;
+  tileCount: number;
 }
 
 /**
  * Visual guide lines showing valid swipe directions
  */
-export function GridLines({ size, enableDiagonal }: GridLinesProps) {
-  const gridDimension = size * TILE_SIZE;
+export function GridLines({ size, enableDiagonal, tileCount }: GridLinesProps) {
   const lines = [];
 
-  // Horizontal lines
-  for (let i = 1; i < size; i++) {
+  // For straight line layouts (< 4 tiles), don't show grid lines
+  if (tileCount < 4) {
+    return null;
+  }
+
+  const gridDimension = size * TILE_SIZE;
+  const centerOffset = TILE_SIZE / 2;
+  const lineLength = (size - 1) * TILE_SIZE; // Lines go from first to last tile center
+
+  // Horizontal lines - through centers of tile positions
+  for (let i = 0; i < size; i++) {
     lines.push(
       <div
         key={`h-${i}`}
         className={styles.horizontalLine}
         style={{
-          top: i * TILE_SIZE,
-          width: gridDimension
+          top: i * TILE_SIZE + centerOffset - 2,
+          left: centerOffset,
+          width: lineLength
         }}
       />
     );
   }
 
-  // Vertical lines
-  for (let i = 1; i < size; i++) {
+  // Vertical lines - through centers of tile positions
+  for (let i = 0; i < size; i++) {
     lines.push(
       <div
         key={`v-${i}`}
         className={styles.verticalLine}
         style={{
-          left: i * TILE_SIZE,
-          height: gridDimension
+          left: i * TILE_SIZE + centerOffset - 2,
+          top: centerOffset,
+          height: lineLength
         }}
       />
     );

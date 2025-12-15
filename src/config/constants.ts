@@ -19,6 +19,13 @@ export const TUTORIAL_LESSONS: TutorialLesson[] = [
     level: 'level-2'
   },
   {
+    id: 'lesson2.2',
+    title: 'LESSON 2.2: <span style="color:#03dbd6">GREEN TILES</span>',
+    text: 'Hint: <span style="color:#03dbd6">green tiles</span>, clear both tiles with 1 move. <p><br />Careful: It\'s not <i>always</i> the right move</p>',
+    level: 'level-2',
+    isDynamic: true // This lesson shows automatically when pairs are detected
+  },
+  {
     id: 'lesson3',
     title: 'LESSON 3: VERTICAL',
     text: 'Swipe horizontally or vertically',
@@ -71,7 +78,7 @@ export const VAULTS: Vault[] = [
 ];
 
 // Grid constants
-export const TILE_SIZE = 58; // pixels
+export const TILE_SIZE = 40; // pixels
 export const ANIMATION_DURATION = 250; // milliseconds
 
 // Diagonal unlocking

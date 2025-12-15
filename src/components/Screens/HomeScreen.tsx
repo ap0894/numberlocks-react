@@ -4,10 +4,11 @@ import styles from './HomeScreen.module.css';
 interface HomeScreenProps {
   onPlayClick: () => void;
   onSettingsClick: () => void;
+  onTutorialClick: () => void;
   totalStars: number;
 }
 
-export function HomeScreen({ onPlayClick, onSettingsClick, totalStars }: HomeScreenProps) {
+export function HomeScreen({ onPlayClick, onSettingsClick, onTutorialClick, totalStars }: HomeScreenProps) {
   return (
     <div className={styles.container}>
       <motion.div
@@ -75,6 +76,17 @@ export function HomeScreen({ onPlayClick, onSettingsClick, totalStars }: HomeScr
           </div>
         </div>
       </motion.div>
+
+      {/* Tutorial button */}
+      <motion.button
+        className={styles.tutorialButton}
+        onClick={onTutorialClick}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
+        transition={{ type: 'spring', stiffness: 200 }}
+      >
+        <img src="/img/info.svg" alt="Tutorial" className={styles.tutorialIcon} />
+      </motion.button>
 
       {/* Settings button */}
       <motion.button

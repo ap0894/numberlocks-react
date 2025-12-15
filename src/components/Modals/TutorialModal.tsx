@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { TUTORIAL_LESSONS, FIRST_TIME_TITLE, FIRST_TIME_TUTORIAL } from '../../config/constants';
+import { TUTORIAL_LESSONS, FIRST_TIME_TITLE, FIRST_TIME_TUTORIAL } from '@/config/constants.ts';
 import styles from './TutorialModal.module.css';
 
 interface TutorialModalProps {
@@ -22,21 +22,23 @@ export function TutorialModal({ isOpen, onClose, onStart, lessonId, isFirstTime 
   };
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {isOpen && (
         <motion.div
           className={styles.overlay}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
           onClick={onClose}
         >
           <motion.div
             className={styles.modal}
-            initial={{ opacity: 0, scale: 0.8, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: 50 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            layout
             onClick={(e) => e.stopPropagation()}
           >
             {isFirstTime ? (
@@ -75,7 +77,10 @@ export function TutorialModal({ isOpen, onClose, onStart, lessonId, isFirstTime 
             ) : lesson ? (
               <>
                 <div className={styles.header}>
-                  <h2 className={styles.title}>{lesson.title}</h2>
+                  <h2
+                    className={styles.title}
+                    dangerouslySetInnerHTML={{ __html: lesson.title }}
+                  />
                 </div>
 
                 <div className={styles.content}>

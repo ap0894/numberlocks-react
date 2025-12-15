@@ -86,6 +86,14 @@
   margin: 20px 0;
 }
 
+.congratsText {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #ffffff;
+  margin: 20px 0;
+  font-weight: 500;
+}
+
 .buttons {
   display: flex;
   gap: 15px;

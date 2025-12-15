@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useGameStore } from '../../store/gameStore';
-import { useProgressStore } from '../../store/progressStore';
+import { useGameStore } from '@/store/gameStore.ts';
+import { useProgressStore } from '@/store/progressStore.ts';
+import { CONGRATS_TITLE, CONGRATS_TEXT } from '@/config/constants.ts';
 import styles from './GameOverModal.module.css';
 
 interface GameOverModalProps {
@@ -45,6 +46,8 @@ export function GameOverModal({ isOpen, onClose, onRetry, onNext, levelId }: Gam
   };
 
   const levelDisplay = getLevelDisplay(levelId);
+  const isTutorialLevel = levelId.startsWith('level-');
+  const isFinalTutorialLevel = levelId === 'level-4';
 
   return (
     <AnimatePresence>
@@ -66,13 +69,42 @@ export function GameOverModal({ isOpen, onClose, onRetry, onNext, levelId }: Gam
           >
             <div className={styles.header}>
               <h2 className={styles.title}>
-                {levelDisplay.name} <span className={styles.levelNum}>{levelDisplay.number}</span> {isComplete ? 'COMPLETE!' : 'GAME OVER'}
+                {isTutorialLevel && isComplete ? CONGRATS_TITLE :
+                  `${levelDisplay.name} ${levelDisplay.number} ${isComplete ? 'COMPLETE!' : 'GAME OVER'}`}
               </h2>
             </div>
 
             <div className={styles.content}>
               {isComplete ? (
                 <>
+                  {isTutorialLevel && !isFinalTutorialLevel ? (
+                    // Special message for tutorial levels (except the last one)
+                    <>
+                      <p className={styles.congratsText}>{CONGRATS_TEXT}</p>
+
+                      <div className={styles.buttons}>
+                        <motion.button
+                          className={styles.nextButton}
+                          onClick={handleNext}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          Okay
+                        </motion.button>
+
+                        <motion.button
+                          className={styles.cancelButton}
+                          onClick={handleClose}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.95 }}
+                        >
+                          Skip
+                        </motion.button>
+                      </div>
+                    </>
+                  ) : (
+                    // Standard completion message for final tutorial and regular levels
+                    <>
                   <div className={styles.scoreContainer}>
                     <p className={styles.movesLabel}>Moves: <span className={styles.movesValue}>{moves}</span></p>
 
@@ -128,6 +160,8 @@ export function GameOverModal({ isOpen, onClose, onRetry, onNext, levelId }: Gam
                       </motion.button>
                     )}
                   </div>
+                    </>
+                  )}
                 </>
               ) : (
                 <>

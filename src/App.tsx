@@ -56,6 +56,21 @@ function App() {
   const handleNext = () => {
     setShowGameOverModal(false);
 
+    // Handle tutorial level progression
+    if (selectedLevel?.startsWith('level-')) {
+      const tutorialNumber = parseInt(selectedLevel.replace('level-', ''), 10);
+      if (tutorialNumber < 4) {
+        // Go to next tutorial level
+        navigateToGame(`level-${tutorialNumber + 1}`);
+      } else {
+        // Completed all tutorials, show vaults
+        const { completeTutorial } = useProgressStore.getState();
+        completeTutorial();
+        navigateToVaults();
+      }
+      return;
+    }
+
     if (!selectedLevel || !selectedVault) return;
 
     const vault = VAULTS.find(v => v.id === selectedVault);
@@ -84,8 +99,18 @@ function App() {
     setShowSettingsModal(false);
   };
 
+  const handleTutorialClick = () => {
+    setShowTutorialModal(true);
+  };
+
   const handleTutorialClose = () => {
     setShowTutorialModal(false);
+  };
+
+  const handleTutorialStart = () => {
+    setShowTutorialModal(false);
+    // Navigate to first tutorial level
+    navigateToGame('level-1');
   };
 
   return (
@@ -102,6 +127,7 @@ function App() {
             <HomeScreen
               onPlayClick={handlePlayClick}
               onSettingsClick={handleSettingsClick}
+              onTutorialClick={handleTutorialClick}
               totalStars={totalStars}
             />
           </motion.div>
@@ -169,6 +195,7 @@ function App() {
       <TutorialModal
         isOpen={showTutorialModal}
         onClose={handleTutorialClose}
+        onStart={handleTutorialStart}
         isFirstTime={true}
       />
 

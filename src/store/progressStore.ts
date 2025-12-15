@@ -18,7 +18,7 @@ export const useProgressStore = create<ProgressStore>()(
     persist(
       (set, get) => ({
         // Initial state
-        highestLevel: 1,
+        highestLevel: 5, // Unlock tutorial levels (0-3) + first real level (4)
         highestVault: 1,
         totalStars: 0,
         levelStars: {},
@@ -58,7 +58,7 @@ export const useProgressStore = create<ProgressStore>()(
         // Reset all progress (for testing or user request)
         resetProgress: () => {
           set({
-            highestLevel: 1,
+            highestLevel: 5, // Unlock tutorial levels (0-3) + first real level (4)
             highestVault: 1,
             totalStars: 0,
             levelStars: {},
@@ -100,7 +100,7 @@ export const useProgressStore = create<ProgressStore>()(
               return {
                 ...persistedState,
                 tutorialComplete: oldTutorialComplete === 'true',
-                highestLevel: parseInt(oldHighestLevel || '1', 10),
+                highestLevel: parseInt(oldHighestLevel || '5', 10),
                 totalStars: parseInt(oldTotalStars || '0', 10)
               };
             }

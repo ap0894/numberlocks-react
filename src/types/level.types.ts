@@ -22,6 +22,7 @@ export interface Tile {
   isComplete: boolean;
   isPair: boolean;
   isIsolated: boolean;
+  showTick: boolean; // True if tick should be shown when complete
 }
 
 export type SwipeDirection =
@@ -39,4 +40,5 @@ export interface TutorialLesson {
   title: string;
   text: string;
   level: string;
+  isDynamic?: boolean; // True if lesson shows automatically during gameplay
 }

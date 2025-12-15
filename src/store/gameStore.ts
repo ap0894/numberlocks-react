@@ -17,6 +17,15 @@ interface GameStore extends GameState {
 
 // Helper function to calculate position from index and grid size
 function calculatePosition(index: number, totalTiles: number): { row: number; col: number } {
+  // For levels with less than 4 tiles, lay them out in a straight horizontal line
+  if (totalTiles < 4) {
+    return {
+      row: 0,
+      col: index
+    };
+  }
+
+  // Standard grid layout for 4+ tiles
   const gridSize = Math.sqrt(totalTiles);
   return {
     row: Math.floor(index / gridSize),
@@ -49,7 +58,8 @@ export const useGameStore = create<GameStore>()(
           position: calculatePosition(index, level.tiles.length),
           isComplete: false,
           isPair: false,
-          isIsolated: false
+          isIsolated: false,
+          showTick: false
         }));
 
         set({

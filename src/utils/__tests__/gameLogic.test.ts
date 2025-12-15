@@ -7,7 +7,7 @@ import {
   getGridSize,
   indexToPosition
 } from '../gameLogic';
-import { Tile } from '../../types/level.types';
+import { Tile } from '@/types/level.types.ts';
 
 describe('gameLogic', () => {
   describe('calculateTargetPosition', () => {
@@ -34,7 +34,8 @@ describe('gameLogic', () => {
           position: { row: 0, col: 0 },
           isComplete: false,
           isPair: false,
-          isIsolated: false
+          isIsolated: false,
+          showTick: false
         },
         {
           id: 'tile-1',
@@ -42,7 +43,8 @@ describe('gameLogic', () => {
           position: { row: 0, col: 1 },
           isComplete: false,
           isPair: false,
-          isIsolated: false
+          isIsolated: false,
+          showTick: false
         }
       ];
 
@@ -70,7 +72,8 @@ describe('gameLogic', () => {
           position: { row: 0, col: 0 },
           isComplete: false,
           isPair: false,
-          isIsolated: false
+          isIsolated: false,
+          showTick: false
         },
         {
           id: 'tile-1',
@@ -78,7 +81,8 @@ describe('gameLogic', () => {
           position: { row: 0, col: 1 },
           isComplete: false,
           isPair: false,
-          isIsolated: false
+          isIsolated: false,
+          showTick: false
         }
       ];
 
@@ -97,7 +101,8 @@ describe('gameLogic', () => {
           position: { row: 0, col: 0 },
           isComplete: false,
           isPair: false,
-          isIsolated: false
+          isIsolated: false,
+          showTick: false
         }
       ];
 
@@ -118,7 +123,8 @@ describe('gameLogic', () => {
           position: { row: 0, col: 0 },
           isComplete: false,
           isPair: false,
-          isIsolated: false
+          isIsolated: false,
+          showTick: false
         },
         {
           id: 'tile-1',
@@ -126,7 +132,8 @@ describe('gameLogic', () => {
           position: { row: 0, col: 1 },
           isComplete: false,
           isPair: false,
-          isIsolated: false
+          isIsolated: false,
+          showTick: false
         },
         {
           id: 'tile-2',
@@ -134,7 +141,8 @@ describe('gameLogic', () => {
           position: { row: 1, col: 0 },
           isComplete: false,
           isPair: false,
-          isIsolated: false
+          isIsolated: false,
+          showTick: false
         }
       ];
 
@@ -156,7 +164,8 @@ describe('gameLogic', () => {
           position: { row: 1, col: 1 }, // center
           isComplete: false,
           isPair: false,
-          isIsolated: false
+          isIsolated: false,
+          showTick: false
         },
         {
           id: 'tile-1',
@@ -164,7 +173,8 @@ describe('gameLogic', () => {
           position: { row: 0, col: 1 }, // top
           isComplete: true,
           isPair: false,
-          isIsolated: false
+          isIsolated: false,
+          showTick: false
         },
         {
           id: 'tile-2',
@@ -172,7 +182,8 @@ describe('gameLogic', () => {
           position: { row: 2, col: 1 }, // bottom
           isComplete: true,
           isPair: false,
-          isIsolated: false
+          isIsolated: false,
+          showTick: false
         },
         {
           id: 'tile-3',
@@ -180,7 +191,8 @@ describe('gameLogic', () => {
           position: { row: 1, col: 0 }, // left
           isComplete: true,
           isPair: false,
-          isIsolated: false
+          isIsolated: false,
+          showTick: false
         },
         {
           id: 'tile-4',
@@ -188,7 +200,8 @@ describe('gameLogic', () => {
           position: { row: 1, col: 2 }, // right
           isComplete: true,
           isPair: false,
-          isIsolated: false
+          isIsolated: false,
+          showTick: false
         }
       ];
 
@@ -206,7 +219,8 @@ describe('gameLogic', () => {
           position: { row: 1, col: 1 },
           isComplete: false,
           isPair: false,
-          isIsolated: false
+          isIsolated: false,
+          showTick: false
         },
         {
           id: 'tile-1',
@@ -214,7 +228,8 @@ describe('gameLogic', () => {
           position: { row: 0, col: 1 },
           isComplete: false, // Not complete - valid move exists
           isPair: false,
-          isIsolated: false
+          isIsolated: false,
+          showTick: false
         }
       ];
 
@@ -231,13 +246,24 @@ describe('gameLogic', () => {
       expect(getGridSize(16)).toBe(4); // 4x4
     });
 
-    it('should convert index to position correctly', () => {
-      // 3x3 grid
-      expect(indexToPosition(0, 3)).toEqual({ row: 0, col: 0 });
-      expect(indexToPosition(1, 3)).toEqual({ row: 0, col: 1 });
-      expect(indexToPosition(3, 3)).toEqual({ row: 1, col: 0 });
-      expect(indexToPosition(4, 3)).toEqual({ row: 1, col: 1 });
-      expect(indexToPosition(8, 3)).toEqual({ row: 2, col: 2 });
+    it('should convert index to position correctly for standard grid', () => {
+      // 3x3 grid (9 tiles)
+      expect(indexToPosition(0, 3, 9)).toEqual({ row: 0, col: 0 });
+      expect(indexToPosition(1, 3, 9)).toEqual({ row: 0, col: 1 });
+      expect(indexToPosition(3, 3, 9)).toEqual({ row: 1, col: 0 });
+      expect(indexToPosition(4, 3, 9)).toEqual({ row: 1, col: 1 });
+      expect(indexToPosition(8, 3, 9)).toEqual({ row: 2, col: 2 });
+    });
+
+    it('should convert index to position correctly for straight line layout', () => {
+      // Straight line layout (2 tiles)
+      expect(indexToPosition(0, 2, 2)).toEqual({ row: 0, col: 0 });
+      expect(indexToPosition(1, 2, 2)).toEqual({ row: 0, col: 1 });
+
+      // Straight line layout (3 tiles)
+      expect(indexToPosition(0, 3, 3)).toEqual({ row: 0, col: 0 });
+      expect(indexToPosition(1, 3, 3)).toEqual({ row: 0, col: 1 });
+      expect(indexToPosition(2, 3, 3)).toEqual({ row: 0, col: 2 });
     });
   });
 });

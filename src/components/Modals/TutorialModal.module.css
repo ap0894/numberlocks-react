@@ -18,9 +18,11 @@
   padding: 30px;
   max-width: 450px;
   width: 100%;
+  min-height: 200px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
   color: #ffffff;
   text-align: center;
+  will-change: opacity;
 }
 
 .header {

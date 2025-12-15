@@ -1,7 +1,8 @@
+import { memo, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Tile as TileType, SwipeDirection } from '../../types/level.types';
-import { useSwipeGesture } from '../../hooks/useSwipeGesture';
-import { TILE_SIZE } from '../../config/constants';
+import { useSwipeGesture } from '@/hooks/useSwipeGesture.ts';
+import { TILE_SIZE } from '@/config/constants.ts';
 import styles from './Tile.module.css';
 
 interface TileProps {
@@ -10,18 +11,21 @@ interface TileProps {
   enableDiagonal: boolean;
 }
 
-export function Tile({ tile, onSwipe, enableDiagonal }: TileProps) {
-  const handleSwipe = (direction: SwipeDirection) => {
-    if (!tile.isComplete) {
-      onSwipe(tile.id, direction);
-    }
-  };
+function TileComponent({ tile, onSwipe, enableDiagonal }: TileProps) {
+  const handleSwipe = useCallback(
+    (direction: SwipeDirection) => {
+      if (!tile.isComplete) {
+        onSwipe(tile.id, direction);
+      }
+    },
+    [tile.id, tile.isComplete, onSwipe]
+  );
 
   const bind = useSwipeGesture({
     onSwipe: handleSwipe,
     enableDiagonal,
-    threshold: 10,
-    velocity: 0.1
+    threshold: 5,
+    velocity: 0.05
   });
 
   // Calculate pixel position from grid position
@@ -33,11 +37,15 @@ export function Tile({ tile, onSwipe, enableDiagonal }: TileProps) {
     styles.tile,
     !tile.isComplete && styles.tileMovable,
     tile.isComplete && styles.tileComplete,
-    tile.isPair && styles.pair,
+    tile.isPair && !tile.isComplete && styles.pair,
     tile.isIsolated && styles.isolated
   ]
     .filter(Boolean)
     .join(' ');
+
+  // Tile visual size is 65% of grid spacing to show background grid
+  const tileVisualSize = TILE_SIZE * 0.65;
+  const offset = (TILE_SIZE - tileVisualSize) / 2;
 
   return (
     <motion.div
@@ -45,8 +53,8 @@ export function Tile({ tile, onSwipe, enableDiagonal }: TileProps) {
       className={className}
       initial={{ scale: 0, opacity: 0 }}
       animate={{
-        left,
-        top,
+        left: left + offset,
+        top: top + offset,
         scale: 1,
         opacity: 1
       }}
@@ -57,20 +65,21 @@ export function Tile({ tile, onSwipe, enableDiagonal }: TileProps) {
       }}
       style={{
         position: 'absolute',
-        width: TILE_SIZE,
-        height: TILE_SIZE,
-        touchAction: 'none' // Prevent default touch behavior
+        width: tileVisualSize,
+        height: tileVisualSize
       }}
     >
-      {tile.isComplete ? (
+      {tile.isComplete && tile.showTick ? (
         <img
           src="/img/Tick2NoCircle.svg"
           alt="Complete"
           className={styles.tickIcon}
         />
-      ) : (
+      ) : !tile.isComplete ? (
         <span className={styles.tileValue}>{tile.value}</span>
-      )}
+      ) : null}
     </motion.div>
   );
 }
+
+export const Tile = memo(TileComponent);
