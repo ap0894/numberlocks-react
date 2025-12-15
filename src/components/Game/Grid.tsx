@@ -61,7 +61,11 @@ export function Grid({ size, tileCount }: GridProps) {
         height: gridHeight
       }}
     >
-      {circles}
+      {circles.map((circle) => (
+          <div>
+
+          </div>
+      ))}
     </div>
   );
 }
