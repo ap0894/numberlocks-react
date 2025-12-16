@@ -7,6 +7,8 @@
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
+  /* Safe area support for iOS notch */
+  padding-top: max(20px, env(safe-area-inset-top));
 }
 
 .header {
@@ -65,11 +67,12 @@
 }
 
 .gameWrapper {
-  flex: 1;
+  flex: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 20px 0;
+  margin: 5px 0;
+  margin-top: 80px; /* Space for tutorial overlay */
 }
 
 .footer {
@@ -77,8 +80,9 @@
   max-width: 500px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin-top: auto;
+  gap: 10px;
+  margin-top: 5px;
+  padding-bottom: max(20px, env(safe-area-inset-bottom));
 }
 
 .sliderWrapper {

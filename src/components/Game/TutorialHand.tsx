@@ -43,11 +43,11 @@ export function TutorialHand({ levelId }: TutorialHandProps) {
         };
 
       case 'level-3':
-        // Vertical swipe - starts top, moves down, fades out, then resets
+        // Vertical swipe - starts top right (5 tile), moves down to bottom right (4 tile)
         return {
           className: styles.hand,
           animate: {
-            x: [0, 0, 0],
+            x: [20, 20, 20],
             y: [-6, 34, 34],
             opacity: [0, 1, 0]
           },

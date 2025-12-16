@@ -142,12 +142,23 @@
   font-size: 36px;
   font-weight: bold;
   color: #ffffff;
+  position: relative;
   margin-bottom: 10px;
 }
 
 .lockIcon {
   width: 40px;
   height: 40px;
+}
+
+.lockOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40px;
+  height: 40px;
+  filter: brightness(0.7);
 }
 
 .starsContainer {

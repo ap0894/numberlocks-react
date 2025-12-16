@@ -99,10 +99,9 @@ export function LevelSelector({ vaultId, onLevelSelect, onBackClick }: LevelSele
                     whileTap={isUnlocked ? { scale: 0.95 } : {}}
                   >
                     <div className={styles.levelNumber}>
-                      {isUnlocked ? (
-                        levelNum
-                      ) : (
-                        <img src="/img/locked.svg" alt="Locked" className={styles.lockIcon} />
+                      {levelNum}
+                      {!isUnlocked && (
+                        <img src="/img/locked.svg" alt="Locked" className={styles.lockOverlay} />
                       )}
                     </div>
 

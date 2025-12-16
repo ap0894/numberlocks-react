@@ -7,6 +7,8 @@
   align-items: center;
   padding: 20px;
   box-sizing: border-box;
+  /* Additional safe area padding for iOS notch */
+  padding-top: max(20px, env(safe-area-inset-top));
 }
 
 .header {

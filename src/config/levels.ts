@@ -21,7 +21,7 @@ export const LEVELS: Record<string, Level> = {
   },
   'level-3': {
     id: 'level-3',
-    tiles: [2, 4, 3, 1],
+    tiles: [3, 5, 2, 4],
     starThresholds: {
       three: 3,
       two: 3,
