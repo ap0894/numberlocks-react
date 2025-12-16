@@ -140,3 +140,10 @@ vite.config.ts.timestamp-*
 
 # IDE - IntelliJ IDEA / WebStorm
 .idea/
+
+# Capacitor - platform folders (regenerated from web build)
+ios/
+android/
+
+# But keep the capacitor config
+!capacitor.config.ts
