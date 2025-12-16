@@ -11,7 +11,7 @@
 
 .header {
   width: 100%;
-  max-width: 400px;
+  max-width: 700px;
   position: relative;
   display: flex;
   align-items: center;
@@ -60,7 +60,7 @@
 
 .statsBar {
   width: 100%;
-  max-width: 400px;
+  max-width: 700px;
   margin-top: 20px;
   display: flex;
   justify-content: center;
@@ -85,7 +85,7 @@
 
 .content {
   width: 100%;
-  max-width: 400px;
+  max-width: 700px;
   margin-top: 30px;
   flex: 1;
   display: flex;
@@ -102,7 +102,7 @@
 
 .levelsGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 15px;
   width: 100%;
 }
@@ -252,9 +252,16 @@
 }
 
 /* Responsive design */
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .levelsGrid {
+    grid-template-columns: repeat(3, 1fr);
     gap: 12px;
+  }
+
+  .header,
+  .statsBar,
+  .content {
+    max-width: 400px;
   }
 
   .levelNumber {

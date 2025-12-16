@@ -12,39 +12,24 @@
 }
 
 .hand {
-  width: 60px;
-  height: 60px;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
-/* Different starting positions for each animation */
-.horizontal1 {
-  transform: translateX(-40px);
-}
-
-.horizontal2 {
-  transform: translateX(40px);
-}
-
-.vertical {
-  transform: translateY(-40px);
-}
-
-.diagonal {
-  transform: translate(-40px, -40px);
-}
+/* Position adjustments handled in animation values, not CSS transforms */
 
 /* Responsive scaling */
 @media (max-width: 600px) {
   .hand {
-    width: 50px;
-    height: 50px;
+    width: 24px;
+    height: 24px;
   }
 }
 
 @media (max-width: 360px) {
   .hand {
-    width: 40px;
-    height: 40px;
+    width: 22px;
+    height: 22px;
   }
 }

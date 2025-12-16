@@ -9,67 +9,70 @@ export function TutorialHand({ levelId }: TutorialHandProps) {
   const getAnimationConfig = () => {
     switch (levelId) {
       case 'level-1':
-        // Horizontal swipe (left to right)
+        // Horizontal swipe - starts over right tile, moves left, fades out, then resets
         return {
-          className: styles.horizontal1,
+          className: styles.hand,
           animate: {
-            x: [0, 80, 80, 0],
-            opacity: [0, 1, 1, 0]
+            x: [20, -20, -20],
+            y: [14, 14, 14],
+            opacity: [0, 1, 0]
           },
           transition: {
             duration: 2.5,
             repeat: Infinity,
             repeatDelay: 0.5,
-            times: [0, 0.3, 0.7, 1]
+            times: [0, 0.5, 1]
           }
         };
 
       case 'level-2':
-        // Horizontal swipe variant (right to left)
+        // Horizontal swipe - starts right, moves to center, fades out, then resets
         return {
-          className: styles.horizontal2,
+          className: styles.hand,
           animate: {
-            x: [80, 0, 0, 80],
-            opacity: [0, 1, 1, 0]
+            x: [40, 0, 0],
+            y: [14, 14, 14],
+            opacity: [0, 1, 0]
           },
           transition: {
             duration: 2.5,
             repeat: Infinity,
             repeatDelay: 0.5,
-            times: [0, 0.3, 0.7, 1]
+            times: [0, 0.5, 1]
           }
         };
 
       case 'level-3':
-        // Vertical swipe (top to bottom)
+        // Vertical swipe - starts top, moves down, fades out, then resets
         return {
-          className: styles.vertical,
+          className: styles.hand,
           animate: {
-            y: [0, 80, 80, 0],
-            opacity: [0, 1, 1, 0]
+            x: [0, 0, 0],
+            y: [-6, 34, 34],
+            opacity: [0, 1, 0]
           },
           transition: {
             duration: 2.5,
             repeat: Infinity,
             repeatDelay: 0.5,
-            times: [0, 0.3, 0.7, 1]
+            times: [0, 0.5, 1]
           }
         };
 
       case 'level11':
-        // Diagonal swipe (top-left to bottom-right)
+        // Diagonal swipe - starts top-left, moves bottom-right, fades out, then resets
         return {
-          className: styles.diagonal,
+          className: styles.hand,
           animate: {
-            x: [0, 80, 80, 0],
-            y: [0, 80, 80, 0],
-            opacity: [0, 1, 1, 0]
+            x: [-20, 20, 20],
+            y: [-6, 34, 34],
+            opacity: [0, 1, 0]
           },
           transition: {
             duration: 2.5,
             repeat: Infinity,
             repeatDelay: 0.5,
-            times: [0, 0.3, 0.7, 1]
+            times: [0, 0.5, 1]
           }
         };
 

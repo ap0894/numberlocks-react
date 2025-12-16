@@ -129,15 +129,6 @@ export function GameOverModal({ isOpen, onClose, onRetry, onNext, levelId }: Gam
                   </div>
 
                   <div className={styles.buttons}>
-                    <motion.button
-                      className={styles.retryButton}
-                      onClick={onRetry}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                    >
-                      Retry
-                    </motion.button>
-
                     {onNext && (
                       <motion.button
                         className={styles.nextButton}
@@ -159,6 +150,15 @@ export function GameOverModal({ isOpen, onClose, onRetry, onNext, levelId }: Gam
                         Okay
                       </motion.button>
                     )}
+
+                    <motion.button
+                      className={styles.retryButton}
+                      onClick={onRetry}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      Retry
+                    </motion.button>
                   </div>
                     </>
                   )}

@@ -39,12 +39,15 @@
 
 .boardContent {
   position: relative;
-  /* Scale content to fit in fixed container */
+  /* Scale content to fit in fixed container, but cap at 2x for small layouts */
   transform-origin: center center;
   transform: scale(
     min(
-      calc((min(400px, 85vw) - 40px) / var(--natural-width)),
-      calc((min(400px, 85vw) - 40px) / var(--natural-height))
+      2,
+      min(
+        calc((min(400px, 85vw) - 40px) / var(--natural-width)),
+        calc((min(400px, 85vw) - 40px) / var(--natural-height))
+      )
     )
   );
 }

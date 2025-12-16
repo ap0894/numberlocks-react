@@ -14,12 +14,8 @@
 }
 
 .content {
-  background: linear-gradient(135deg, rgba(57, 66, 100, 0.95) 0%, rgba(80, 89, 123, 0.95) 100%);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
+  background: transparent;
   padding: 16px 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  border: 2px solid rgba(41, 172, 228, 0.3);
   max-width: 500px;
   width: 100%;
 }

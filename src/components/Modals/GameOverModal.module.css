@@ -96,9 +96,10 @@
 
 .buttons {
   display: flex;
-  gap: 15px;
+  flex-direction: column;
+  gap: 12px;
   justify-content: center;
-  flex-wrap: wrap;
+  width: 100%;
 }
 
 .retryButton,
@@ -107,13 +108,13 @@
   font-family: 'Raleway', 'Orbitron', sans-serif;
   font-size: 16px;
   font-weight: 600;
-  padding: 12px 30px;
+  padding: 14px 30px;
   border: none;
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-  min-width: 120px;
+  width: 100%;
 }
 
 .retryButton {
@@ -167,8 +168,7 @@
   .nextButton,
   .cancelButton {
     font-size: 14px;
-    padding: 10px 24px;
-    min-width: 100px;
+    padding: 12px 24px;
   }
 }
 
@@ -184,15 +184,5 @@
   .starIcon {
     width: 35px;
     height: 35px;
-  }
-
-  .buttons {
-    flex-direction: column;
-  }
-
-  .retryButton,
-  .nextButton,
-  .cancelButton {
-    width: 100%;
   }
 }

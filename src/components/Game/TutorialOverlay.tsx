@@ -14,6 +14,10 @@ export function TutorialOverlay({ levelId }: TutorialOverlayProps) {
     return null;
   }
 
+  // Extract subtitle (part after colon, e.g., "NO NEGATIVES" from "LESSON 2.1: NO NEGATIVES")
+  const colonIndex = lesson.title.indexOf(':');
+  const subtitle = colonIndex !== -1 ? lesson.title.substring(colonIndex + 1).trim() : lesson.title;
+
   return (
     <motion.div
       className={styles.overlay}
@@ -24,7 +28,7 @@ export function TutorialOverlay({ levelId }: TutorialOverlayProps) {
       <div className={styles.content}>
         <h3
           className={styles.title}
-          dangerouslySetInnerHTML={{ __html: lesson.title }}
+          dangerouslySetInnerHTML={{ __html: subtitle }}
         />
         <p
           className={styles.text}

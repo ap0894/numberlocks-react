@@ -19,7 +19,7 @@ export function LevelSelector({ vaultId, onLevelSelect, onBackClick }: LevelSele
     return <div>Vault not found</div>;
   }
 
-  const levelsPerPage = 6;
+  const levelsPerPage = 10;
   const totalPages = Math.ceil(vault.levels.length / levelsPerPage);
   const startIdx = currentPage * levelsPerPage;
   const endIdx = startIdx + levelsPerPage;

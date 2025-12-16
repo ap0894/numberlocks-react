@@ -5,6 +5,7 @@ import { MovesSlider } from '../Game/MovesSlider';
 import { TutorialOverlay } from '../Game/TutorialOverlay';
 import { TutorialModal } from '../Modals/TutorialModal';
 import { useGameStore } from '@/store/gameStore.ts';
+import { TUTORIAL_LESSONS } from '@/config/constants.ts';
 import styles from './GameScreen.module.css';
 
 interface GameScreenProps {
@@ -53,6 +54,16 @@ export function GameScreen({ levelId, onBackClick, onGameOver, onPauseClick, onL
   const getLevelNumber = (levelId: string): string => {
     // Handle tutorial levels (level-1, level-2, etc.)
     if (levelId.startsWith('level-')) {
+      // Find the lesson for this level
+      const lesson = TUTORIAL_LESSONS.find(l => l.level === levelId && !l.isDynamic);
+      if (lesson) {
+        // Extract lesson number (e.g., "LESSON 2.1" from "LESSON 2.1: NO NEGATIVES")
+        const colonIndex = lesson.title.indexOf(':');
+        if (colonIndex !== -1) {
+          return lesson.title.substring(0, colonIndex).trim();
+        }
+        return lesson.title;
+      }
       return `Tutorial ${levelId.replace('level-', '')}`;
     }
     // Handle regular levels (level1, level2, etc.)

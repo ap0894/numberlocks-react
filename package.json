@@ -10,11 +10,13 @@
     "test": "vitest"
   },
   "dependencies": {
-    "@capacitor/core": "^6.0.0",
-    "@capacitor/haptics": "^6.0.3",
-    "@capacitor/screen-orientation": "^6.0.0",
-    "@capacitor/splash-screen": "^6.0.0",
-    "@capacitor/status-bar": "^6.0.0",
+    "@capacitor/android": "^8.0.0",
+    "@capacitor/core": "^8.0.0",
+    "@capacitor/haptics": "^8.0.0",
+    "@capacitor/ios": "^8.0.0",
+    "@capacitor/screen-orientation": "^8.0.0",
+    "@capacitor/splash-screen": "^8.0.0",
+    "@capacitor/status-bar": "^8.0.0",
     "@use-gesture/react": "^10.3.1",
     "framer-motion": "^11.0.0",
     "react": "^18.3.1",
@@ -23,7 +25,7 @@
     "zustand": "^4.5.0"
   },
   "devDependencies": {
-    "@capacitor/cli": "^6.0.0",
+    "@capacitor/cli": "^8.0.0",
     "@types/node": "^20.11.0",
     "@types/react": "^18.3.0",
     "@types/react-dom": "^18.3.0",

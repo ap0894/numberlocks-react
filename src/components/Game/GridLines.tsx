@@ -13,13 +13,38 @@ interface GridLinesProps {
 export function GridLines({ size, enableDiagonal, tileCount }: GridLinesProps) {
   const lines = [];
 
-  // For straight line layouts (< 4 tiles), don't show grid lines
-  if (tileCount < 4) {
-    return null;
-  }
-
   const gridDimension = size * TILE_SIZE;
   const centerOffset = TILE_SIZE / 2;
+
+  // For straight line layouts (< 4 tiles), show simplified lines
+  if (tileCount < 4) {
+    const lineLength = (tileCount - 1) * TILE_SIZE;
+    // Just show a horizontal line connecting the tiles
+    lines.push(
+      <div
+        key="h-0"
+        className={styles.horizontalLine}
+        style={{
+          top: centerOffset - 2,
+          left: centerOffset,
+          width: lineLength
+        }}
+      />
+    );
+
+    return (
+      <div
+        className={styles.linesContainer}
+        style={{
+          width: tileCount * TILE_SIZE,
+          height: TILE_SIZE
+        }}
+      >
+        {lines}
+      </div>
+    );
+  }
+
   const lineLength = (size - 1) * TILE_SIZE; // Lines go from first to last tile center
 
   // Horizontal lines - through centers of tile positions
