@@ -5,6 +5,7 @@ import { MovesSlider } from '../Game/MovesSlider';
 import { TutorialOverlay } from '../Game/TutorialOverlay';
 import { TutorialModal } from '../Modals/TutorialModal';
 import { useGameStore } from '@/store/gameStore.ts';
+import { useProgressStore } from '@/store/progressStore.ts';
 import { TUTORIAL_LESSONS } from '@/config/constants.ts';
 import styles from './GameScreen.module.css';
 
@@ -18,6 +19,7 @@ interface GameScreenProps {
 
 export function GameScreen({ levelId, onBackClick, onGameOver, onPauseClick, onLessonStart }: GameScreenProps) {
   const { currentLevel, moves, stars, isComplete, isGameOver, tiles, initLevel, resetLevel } = useGameStore();
+  const { totalStars } = useProgressStore();
   const [showLessonModal, setShowLessonModal] = useState(false);
   const [currentLessonId, setCurrentLessonId] = useState<string | null>(null);
   const pairTutorialShownRef = useRef(false);
@@ -99,17 +101,36 @@ export function GameScreen({ levelId, onBackClick, onGameOver, onPauseClick, onL
       <div className={styles.container}>
       {/* Tutorial Overlay - shows instructions on screen for tutorial levels */}
       {isTutorialLevel && <TutorialOverlay levelId={levelId} />}
-      {/* Header */}
+
+      {/* Back Button - positioned at top left */}
+      <motion.button
+        className={styles.backButton}
+        onClick={onBackClick}
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <img src="/img/back.svg" alt="Back" className={styles.backIcon} />
+      </motion.button>
+
+      {/* Key Count Display - positioned at top right */}
+      <motion.div
+        className={styles.keyCount}
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <img src="/img/key.svg" alt="Keys" className={styles.keyCountIcon} />
+        <span className={styles.keyCountNumber}>{totalStars}</span>
+      </motion.div>
+
+      {/* Header - level title and pause */}
       <motion.div
         className={styles.header}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <button className={styles.backButton} onClick={onBackClick}>
-          <img src="/img/back.svg" alt="Back" className={styles.backIcon} />
-        </button>
-
         <div className={styles.levelInfo}>
           <h2 className={styles.levelName}>{getLevelNumber(levelId)}</h2>
         </div>

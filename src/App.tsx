@@ -13,6 +13,7 @@ import { useGameStore } from './store/gameStore';
 import { useProgressStore } from './store/progressStore';
 import { VAULTS } from './config/constants';
 import './App.css';
+import {audioService} from "@/services/AudioService.ts";
 
 function App() {
   const { currentScreen, selectedVault, selectedLevel, navigateToVaults, navigateToLevels, navigateToGame, goBack } = useNavigationStore();
@@ -25,6 +26,7 @@ function App() {
   useEffect(() => {
     // Initialize Capacitor plugins on mount
     initializeCapacitor();
+    audioService.initialize();
   }, []);
 
   const handlePlayClick = () => {
@@ -143,6 +145,8 @@ function App() {
           >
             <VaultScreen
               onVaultSelect={handleVaultSelect}
+              onSettingsClick={handleSettingsClick}
+              onTutorialClick={handleTutorialClick}
               onBackClick={goBack}
             />
           </motion.div>
@@ -159,6 +163,8 @@ function App() {
             <LevelSelector
               vaultId={selectedVault}
               onLevelSelect={handleLevelSelect}
+              onSettingsClick={handleSettingsClick}
+              onTutorialClick={handleTutorialClick}
               onBackClick={goBack}
             />
           </motion.div>

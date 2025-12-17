@@ -1,44 +1,55 @@
 import { motion } from 'framer-motion';
-import { VAULTS } from '../../config/constants';
-import { useProgressStore } from '../../store/progressStore';
+import { VAULTS } from '@/config/constants.ts';
+import { useProgressStore } from '@/store/progressStore.ts';
 import styles from './VaultScreen.module.css';
 
 interface VaultScreenProps {
   onVaultSelect: (vaultId: number) => void;
   onBackClick: () => void;
+  onTutorialClick?: () => void;
+  onSettingsClick?: () => void;
 }
 
-export function VaultScreen({ onVaultSelect, onBackClick }: VaultScreenProps) {
+export function VaultScreen({ onVaultSelect, onBackClick, onTutorialClick, onSettingsClick }: VaultScreenProps) {
   const { totalStars, highestVault } = useProgressStore();
 
   return (
     <div className={styles.container}>
+      {/* Back Button - top left */}
+      <motion.button
+        className={styles.backButton}
+        onClick={onBackClick}
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <img src="/img/back.svg" alt="Back" className={styles.backIcon} />
+      </motion.button>
+
+      {/* Persistent Key Count - top right */}
+      <motion.div
+        className={styles.keyCount}
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <img src="/img/key.svg" alt="Total Keys" className={styles.keyCountIcon} />
+        <span className={styles.keyCountNumber}>{totalStars}</span>
+      </motion.div>
+
+      {/* Header - centered title */}
       <motion.div
         className={styles.header}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <button className={styles.backButton} onClick={onBackClick}>
-          <img src="/img/back.svg" alt="Back" className={styles.backIcon} />
-        </button>
         <h1 className={styles.title}>
-          NUM<span className={styles.highlight}>6</span>ER L
-          <img className={styles.logo} src="/img/padlocknew.svg" alt="Lock" />
-          CKS
+            Select Vault
+          {/*NUM<span className={styles.highlight}>6</span>ER L*/}
+          {/*<img className={styles.logo} src="/img/padlocknew.svg" alt="Lock" />*/}
+          {/*CKS*/}
         </h1>
-      </motion.div>
-
-      <motion.div
-        className={styles.statsBar}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-      >
-        <div className={styles.totalStars}>
-          <img src="/img/keyblue.svg" alt="Keys" className={styles.keyIcon} />
-          <span>{totalStars}</span>
-        </div>
       </motion.div>
 
       <motion.div
@@ -47,7 +58,7 @@ export function VaultScreen({ onVaultSelect, onBackClick }: VaultScreenProps) {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.3, duration: 0.5 }}
       >
-        <h2 className={styles.heading}>Select Vault:</h2>
+        {/*<h2 className={styles.heading}>Select Vault:</h2>*/}
 
         <div className={styles.vaultsContainer}>
           {VAULTS.map((vault, index) => {
@@ -84,7 +95,12 @@ export function VaultScreen({ onVaultSelect, onBackClick }: VaultScreenProps) {
                 {!isUnlocked && (
                   <div className={styles.requirement}>
                     <img src="/img/keyblue.svg" alt="Required" className={styles.reqKeyIcon} />
-                    <span>{vault.requiredStars}</span>
+                    <div className={styles.requirementText}>
+                      <span className={styles.requirementLabel}>Requires</span>
+                      <span className={styles.requirementValue}>
+                        {totalStars}/{vault.requiredStars}
+                      </span>
+                    </div>
                   </div>
                 )}
 
@@ -96,6 +112,32 @@ export function VaultScreen({ onVaultSelect, onBackClick }: VaultScreenProps) {
           })}
         </div>
       </motion.div>
+
+      {/* Tutorial button - bottom left */}
+      {onTutorialClick && (
+        <motion.button
+          className={styles.tutorialButton}
+          onClick={onTutorialClick}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: 'spring', stiffness: 200 }}
+        >
+          <img src="/img/info.svg" alt="Tutorial" className={styles.tutorialIcon} />
+        </motion.button>
+      )}
+
+      {/* Settings button - bottom right */}
+      {onSettingsClick && (
+        <motion.button
+          className={styles.settingsButton}
+          onClick={onSettingsClick}
+          whileHover={{ rotate: 90 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: 'spring', stiffness: 200 }}
+        >
+          <img src="/img/settings.svg" alt="Settings" className={styles.settingsIcon} />
+        </motion.button>
+      )}
     </div>
   );
 }

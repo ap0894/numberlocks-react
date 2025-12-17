@@ -21,13 +21,51 @@
   height: 8px;
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.15));
   border-radius: 4px;
-  margin: 30px 0;
+  margin: 40px 0 50px;
   box-shadow:
     inset 0 2px 4px rgba(0, 0, 0, 0.5),
     inset 0 -1px 2px rgba(255, 255, 255, 0.1),
     0 1px 2px rgba(255, 255, 255, 0.05);
 }
 
+/* Move number markers (1-10) */
+.moveMarker {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  z-index: 2;
+}
+
+.moveDot {
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+.passedMove .moveDot {
+  background: rgba(74, 144, 226, 0.6);
+  box-shadow: 0 0 4px rgba(74, 144, 226, 0.4);
+}
+
+.moveNumber {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 8px;
+  transition: color 0.3s ease;
+}
+
+.passedMove .moveNumber {
+  color: rgba(255, 255, 255, 0.8);
+  font-weight: 600;
+}
+
+/* Current position indicator */
 .currentIndicator {
   position: absolute;
   top: 50%;
@@ -44,40 +82,35 @@
   box-shadow: 0 2px 8px rgba(74, 144, 226, 0.6);
 }
 
-.marker {
+/* Key markers (star thresholds) */
+.keyMarker {
   position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 5px;
-  z-index: 3;
+  top: -30px;
+  transform: translateX(-50%);
+  z-index: 4;
+  pointer-events: auto;
 }
 
-.markerIcon {
-  width: 20px;
-  height: 20px;
+.keyIcon {
+  width: 24px;
+  height: 24px;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  transition: transform 0.2s ease;
 }
 
-.markerLabel {
-  font-size: 0.75rem;
-  color: rgba(255, 255, 255, 0.7);
-  background: rgba(0, 0, 0, 0.5);
-  padding: 2px 6px;
-  border-radius: 4px;
+.keyMarker:hover .keyIcon {
+  transform: scale(1.2);
 }
 
-.threeStarMarker .markerIcon {
-  filter: drop-shadow(0 0 6px rgba(76, 217, 100, 0.8));
+.threeStarMarker .keyIcon {
+  filter: drop-shadow(0 0 8px rgba(76, 217, 100, 0.8));
 }
 
-.twoStarMarker .markerIcon {
-  filter: drop-shadow(0 0 6px rgba(255, 204, 0, 0.8));
+.twoStarMarker .keyIcon {
+  filter: drop-shadow(0 0 8px rgba(255, 204, 0, 0.8));
 }
 
-.oneStarMarker .markerIcon {
+.oneStarMarker .keyIcon {
   opacity: 0.6;
 }
 
@@ -109,9 +142,13 @@
     font-size: 1rem;
   }
 
-  .markerIcon {
-    width: 16px;
-    height: 16px;
+  .moveNumber {
+    font-size: 0.6rem;
+  }
+
+  .keyIcon {
+    width: 20px;
+    height: 20px;
   }
 
   .starIcon {

@@ -1,9 +1,9 @@
 import { memo } from 'react';
 import { motion } from 'framer-motion';
 import { Tile as TileType, SwipeDirection } from '../../types/level.types';
-// import { useSwipeGesture } from '@/hooks/useSwipeGesture.ts';
 import { useHammerSwipe } from '@/hooks/useHammerSwipe.ts';
 import { TILE_SIZE } from '@/config/constants.ts';
+import { audioService } from '@/services/AudioService'
 import styles from './Tile.module.css';
 
 interface TileProps {
@@ -16,7 +16,10 @@ function TileComponent({ tile, onSwipe, enableDiagonal }: TileProps) {
 
     const tileRef = useHammerSwipe({
         enableDiagonal,
-        onSwipe: (direction) => onSwipe(tile.id, direction),
+        onSwipe: (direction) => {
+            onSwipe(tile.id, direction)
+            audioService.playSwipe(); // 🔊 play sound
+        }
     });
 
   // Calculate pixel position from grid position
