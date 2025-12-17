@@ -42,35 +42,31 @@ class AudioManager {
    * Play a sound effect if sound is enabled in settings
    */
   play(soundName: SoundEffect) {
-    const { soundEnabled } = useSettingsStore.getState();
+      const { soundEnabled } = useSettingsStore.getState();
+      if (!soundEnabled) return;
 
-    if (!soundEnabled) return;
-    if (!this.isInitialized) {
-      this.initialize();
-    }
+      if (!this.isInitialized) return;
 
-    const sound = this.sounds.get(soundName);
-    if (!sound) {
-      console.warn(`Sound not found: ${soundName}`);
-      return;
-    }
+      const sound = this.sounds.get(soundName);
+      if (!sound) return;
 
-    try {
-      // Reset the sound to start if it's already playing
-      sound.currentTime = 0;
+      try {
+          const clone = sound.cloneNode(true) as HTMLAudioElement;
+          clone.volume = sound.volume;
 
-      // Play the sound
-      const playPromise = sound.play();
-
-      // Handle browsers that return a promise
-      if (playPromise !== undefined) {
-        playPromise.catch(error => {
-          console.warn(`Failed to play sound: ${soundName}`, error);
-        });
+          const playPromise = clone.play();
+          if (playPromise) {
+              playPromise.catch(err => {
+                  console.warn(
+                      `Audio blocked (${soundName}):`,
+                      err.name,
+                      err.message
+                  );
+              });
+          }
+      } catch (err) {
+          console.error(`Audio error (${soundName})`, err);
       }
-    } catch (error) {
-      console.error(`Error playing sound: ${soundName}`, error);
-    }
   }
 
   /**

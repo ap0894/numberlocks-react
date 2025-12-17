@@ -1,8 +1,9 @@
-import { memo, useCallback } from 'react';
+import { memo } from 'react';
 import { motion } from 'framer-motion';
 import { Tile as TileType, SwipeDirection } from '../../types/level.types';
-import { useSwipeGesture } from '@/hooks/useSwipeGesture.ts';
+import { useHammerSwipe } from '@/hooks/useHammerSwipe.ts';
 import { TILE_SIZE } from '@/config/constants.ts';
+import { audioService } from '@/services/AudioService'
 import styles from './Tile.module.css';
 
 interface TileProps {
@@ -12,21 +13,14 @@ interface TileProps {
 }
 
 function TileComponent({ tile, onSwipe, enableDiagonal }: TileProps) {
-  const handleSwipe = useCallback(
-    (direction: SwipeDirection) => {
-      if (!tile.isComplete) {
-        onSwipe(tile.id, direction);
-      }
-    },
-    [tile.id, tile.isComplete, onSwipe]
-  );
 
-  const bind = useSwipeGesture({
-    onSwipe: handleSwipe,
-    enableDiagonal,
-    threshold: 5,
-    velocity: 0.05
-  });
+    const tileRef = useHammerSwipe({
+        enableDiagonal,
+        onSwipe: (direction) => {
+            onSwipe(tile.id, direction)
+            audioService.playSwipe(); // 🔊 play sound
+        }
+    });
 
   // Calculate pixel position from grid position
   const left = tile.position.col * TILE_SIZE;
@@ -49,8 +43,9 @@ function TileComponent({ tile, onSwipe, enableDiagonal }: TileProps) {
 
   return (
     <motion.div
-      {...(bind() as any)}
-      className={className}
+        ref={tileRef}
+
+        className={className}
       initial={{ scale: 0, opacity: 0 }}
       animate={{
         left: left + offset,

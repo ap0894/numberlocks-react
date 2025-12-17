@@ -1,7 +1,7 @@
 import { AnimatePresence } from 'framer-motion';
 import { Tile } from './Tile';
 import { Tile as TileType, SwipeDirection } from '../../types/level.types';
-import { TILE_SIZE } from '../../config/constants';
+import { TILE_SIZE } from '@/config/constants.ts';
 import styles from './TileContainer.module.css';
 
 interface TileContainerProps {

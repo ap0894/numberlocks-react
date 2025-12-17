@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { VAULTS } from '../../config/constants';
-import { useProgressStore } from '../../store/progressStore';
+import { VAULTS } from '@/config/constants.ts';
+import { useProgressStore } from '@/store/progressStore.ts';
+import { audioService } from '@/services/AudioService';
 import styles from './LevelSelector.module.css';
 
 interface LevelSelectorProps {
   vaultId: number;
   onLevelSelect: (levelId: string) => void;
   onBackClick: () => void;
+  onTutorialClick?: () => void;
+  onSettingsClick?: () => void;
 }
 
-export function LevelSelector({ vaultId, onLevelSelect, onBackClick }: LevelSelectorProps) {
+export function LevelSelector({ vaultId, onLevelSelect, onBackClick, onTutorialClick, onSettingsClick }: LevelSelectorProps) {
   const vault = VAULTS.find((v) => v.id === vaultId);
   const { levelStars, highestLevel, totalStars, isLevelUnlocked } = useProgressStore();
   const [currentPage, setCurrentPage] = useState(0);
@@ -39,28 +42,36 @@ export function LevelSelector({ vaultId, onLevelSelect, onBackClick }: LevelSele
 
   return (
     <div className={styles.container}>
+      {/* Back Button - top left */}
+      <motion.button
+        className={styles.backButton}
+        onClick={onBackClick}
+        initial={{ opacity: 0, x: -20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <img src="/img/back.svg" alt="Back" className={styles.backIcon} />
+      </motion.button>
+
+      {/* Persistent Key Count - top right */}
+      <motion.div
+        className={styles.keyCount}
+        initial={{ opacity: 0, x: 20 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <img src="/img/key.svg" alt="Total Keys" className={styles.keyCountIcon} />
+        <span className={styles.keyCountNumber}>{totalStars}</span>
+      </motion.div>
+
+      {/* Header - centered title */}
       <motion.div
         className={styles.header}
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <button className={styles.backButton} onClick={onBackClick}>
-          <img src="/img/back.svg" alt="Back" className={styles.backIcon} />
-        </button>
         <h1 className={styles.title}>{vault.name}</h1>
-      </motion.div>
-
-      <motion.div
-        className={styles.statsBar}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 0.2 }}
-      >
-        <div className={styles.totalStars}>
-          <img src="/img/keyblue.svg" alt="Keys" className={styles.keyIcon} />
-          <span>{totalStars}</span>
-        </div>
       </motion.div>
 
       <motion.div
@@ -90,20 +101,24 @@ export function LevelSelector({ vaultId, onLevelSelect, onBackClick }: LevelSele
                   <motion.button
                     key={levelId}
                     className={`${styles.levelCard} ${!isUnlocked ? styles.locked : ''} ${isCurrent ? styles.current : ''}`}
-                    onClick={() => isUnlocked && onLevelSelect(levelId)}
-                    disabled={!isUnlocked}
+                    onClick={() => {
+                        if (isUnlocked) {
+                            onLevelSelect(levelId);
+                        } else {
+                            audioService.playLock();   // locked feedback sound
+                        }
+                    }}
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.05 }}
                     whileHover={isUnlocked ? { scale: 1.05, y: -5 } : {}}
                     whileTap={isUnlocked ? { scale: 0.95 } : {}}
                   >
-                    <div className={styles.levelNumber}>
-                      {levelNum}
-                      {!isUnlocked && (
-                        <img src="/img/locked.svg" alt="Locked" className={styles.lockOverlay} />
-                      )}
-                    </div>
+                    <div className={styles.levelNumber}>{levelNum}</div>
+
+                    {!isUnlocked && (
+                      <img src="/img/locked.svg" alt="Locked" className={styles.lockIcon} />
+                    )}
 
                     {isUnlocked && (
                       <div className={styles.starsContainer}>
@@ -159,6 +174,32 @@ export function LevelSelector({ vaultId, onLevelSelect, onBackClick }: LevelSele
           </div>
         )}
       </motion.div>
+
+      {/* Tutorial button - bottom left */}
+      {onTutorialClick && (
+        <motion.button
+          className={styles.tutorialButton}
+          onClick={onTutorialClick}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: 'spring', stiffness: 200 }}
+        >
+          <img src="/img/info.svg" alt="Tutorial" className={styles.tutorialIcon} />
+        </motion.button>
+      )}
+
+      {/* Settings button - bottom right */}
+      {onSettingsClick && (
+        <motion.button
+          className={styles.settingsButton}
+          onClick={onSettingsClick}
+          whileHover={{ rotate: 90 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: 'spring', stiffness: 200 }}
+        >
+          <img src="/img/settings.svg" alt="Settings" className={styles.settingsIcon} />
+        </motion.button>
+      )}
     </div>
   );
 }

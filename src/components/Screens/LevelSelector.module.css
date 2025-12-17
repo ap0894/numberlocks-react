@@ -1,36 +1,31 @@
 .container {
-  width: 100%;
+  width: 100vw;
+  min-width: 100vw;
+  max-width: 100vw;
   min-height: 100vh;
   background: linear-gradient(135deg, #1f253d 0%, #2c3e50 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   box-sizing: border-box;
-}
-
-.header {
-  width: 100%;
-  max-width: 700px;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .backButton {
   position: absolute;
-  left: 0;
+  top: 10px;
+  left: 10px;
   background: rgba(255, 255, 255, 0.1);
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   transition: all 0.3s ease;
+  z-index: 10;
 }
 
 .backButton:hover {
@@ -39,9 +34,46 @@
 }
 
 .backIcon {
-  width: 20px;
-  height: 20px;
+  width: 22px;
+  height: 22px;
   filter: brightness(0) invert(1);
+}
+
+.keyCount {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 22px;
+  padding: 8px 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.keyCountIcon {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1);
+}
+
+.keyCountNumber {
+  font-family: 'Raleway', 'Orbitron', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.header {
+  width: 100%;
+  max-width: 300px;
+  margin: 60px auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .title {
@@ -54,42 +86,18 @@
   letter-spacing: 2px;
   margin: 0;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  flex: 1;
   text-align: center;
-}
-
-.statsBar {
-  width: 100%;
-  max-width: 700px;
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-}
-
-.totalStars {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-size: 20px;
-  font-weight: bold;
-  color: #ffffff;
-}
-
-.keyIcon {
-  width: 24px;
-  height: 24px;
 }
 
 .content {
   width: 100%;
   max-width: 700px;
+  min-width: 0;
   margin-top: 30px;
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-self: stretch;
 }
 
 .levelsContainer {
@@ -147,18 +155,12 @@
 }
 
 .lockIcon {
-  width: 40px;
-  height: 40px;
-}
-
-.lockOverlay {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 40px;
-  height: 40px;
-  filter: brightness(0.7);
+  top: 5px;
+  right: 5px;
+  width: 30px;
+  height: 30px;
+  filter: brightness(0.9);
 }
 
 .starsContainer {
@@ -262,26 +264,69 @@
   height: 12px;
 }
 
+.tutorialButton {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.tutorialButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.tutorialIcon {
+  width: 28px;
+  height: 28px;
+  filter: brightness(0) invert(1);
+}
+
+.settingsButton {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  background: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  z-index: 10;
+}
+
+.settingsButton:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.settingsIcon {
+  width: 28px;
+  height: 28px;
+  filter: brightness(0) invert(1);
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
-  .levelsGrid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 12px;
-  }
-
-  .header,
-  .statsBar,
-  .content {
-    max-width: 400px;
-  }
-
   .levelNumber {
     font-size: 30px;
   }
 
   .lockIcon {
-    width: 35px;
-    height: 35px;
+    width: 25px;
+    height: 25px;
   }
 
   .starIcon {
