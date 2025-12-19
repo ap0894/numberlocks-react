@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useProgressStore } from '@/store/progressStore';
+import { ratingService } from '@/services/RatingService';
 import styles from './SettingsScreen.module.css';
 
 interface SettingsScreenProps {
@@ -24,8 +25,7 @@ export function SettingsScreen({ onClose }: SettingsScreenProps) {
   };
 
   const handleReviewApp = async () => {
-    // TODO: Re-enable when @capacitor-community/in-app-review supports Capacitor 8
-    alert('Review functionality coming soon! Thank you for your support.');
+    await ratingService.requestReview();
   };
 
   return (

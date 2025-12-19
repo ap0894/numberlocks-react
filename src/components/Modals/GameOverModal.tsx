@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { useGameStore } from '@/store/gameStore.ts';
 import { useProgressStore } from '@/store/progressStore.ts';
+import { ratingService } from '@/services/RatingService';
 import { CONGRATS_TITLE, CONGRATS_TEXT } from '@/config/constants.ts';
 import styles from './GameOverModal.module.css';
 
@@ -29,16 +30,20 @@ export function GameOverModal({ isOpen, onClose, onRetry, onNext, levelId }: Gam
     };
   };
 
-  const handleClose = () => {
+  const handleClose = async () => {
     if (isComplete && stars > 0) {
       updateLevelProgress(levelId, stars);
+      // Request rating prompt after level completion
+      await ratingService.onLevelComplete();
     }
     onClose();
   };
 
-  const handleNext = () => {
+  const handleNext = async () => {
     if (isComplete && stars > 0) {
       updateLevelProgress(levelId, stars);
+      // Request rating prompt after level completion
+      await ratingService.onLevelComplete();
     }
     if (onNext) {
       onNext();

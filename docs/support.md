@@ -4,7 +4,8 @@ Welcome to NumberLocks support! We're here to help you with any questions or iss
 
 ## Contact Us
 
-**Email Support**: [parekh.anup@gmail.com](mailto:parekh.anup@gmail.com)
+- **Bug Reports**: [GitHub Issues](https://github.com/ap0894/numberlocks-react/issues)
+- **General Support**: [parekh.anup@gmail.com](mailto:parekh.anup@gmail.com)
 
 We typically respond within 24-48 hours.
 
@@ -58,11 +59,13 @@ Try these steps:
 
 ### I found a bug!
 
-We appreciate bug reports! Please email us at [parekh.anup@gmail.com](mailto:parekh.anup@gmail.com) with:
+We appreciate bug reports! Please report bugs on our [GitHub Issues page](https://github.com/ap0894/numberlocks-react/issues) with:
 - Description of the bug
 - What level you were playing (if applicable)
 - Screenshots if possible
 - Your device model and iOS version
+
+This helps us track issues and allows you to see the status of reported bugs.
 
 ### Can I play offline?
 
@@ -98,7 +101,7 @@ NumberLocks respects your privacy:
 
 Have an idea to make NumberLocks better? We'd love to hear it!
 
-Email your suggestions to: [parekh.anup@gmail.com](mailto:parekh.anup@gmail.com)
+Submit feature requests on [GitHub Issues](https://github.com/ap0894/numberlocks-react/issues) or email: [parekh.anup@gmail.com](mailto:parekh.anup@gmail.com)
 
 ---
 
@@ -128,11 +131,13 @@ You can see your total keys on the home screen.
 
 - [Privacy Policy](privacy-policy.md)
 - [App Store Page](https://apps.apple.com/us/app/number-locks/id1180420632)
+- [Report a Bug](https://github.com/ap0894/numberlocks-react/issues)
 
 ---
 
 **Still need help?**
 
-Contact us: [parekh.anup@gmail.com](mailto:parekh.anup@gmail.com)
+- **Bug Reports**: [GitHub Issues](https://github.com/ap0894/numberlocks-react/issues)
+- **General Questions**: [parekh.anup@gmail.com](mailto:parekh.anup@gmail.com)
 
 We're committed to making NumberLocks the best experience possible!
