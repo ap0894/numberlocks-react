@@ -16,7 +16,7 @@ interface LevelSelectorProps {
 
 export function LevelSelector({ vaultId, onLevelSelect, onBackClick, onTutorialClick, onSettingsClick }: LevelSelectorProps) {
   const vault = VAULTS.find((v) => v.id === vaultId);
-  const { levelStars, highestLevel, isLevelUnlocked } = useProgressStore();
+  const { levelStars, isLevelUnlocked } = useProgressStore();
   const [currentPage, setCurrentPage] = useState(0);
 
   if (!vault) {
@@ -76,12 +76,11 @@ export function LevelSelector({ vaultId, onLevelSelect, onBackClick, onTutorialC
                 const levelNum = getLevelNumber(levelId);
                 const stars = levelStars[levelId] || 0;
                 const isUnlocked = isLevelUnlocked(levelId);
-                const isCurrent = levelNum === highestLevel;
 
                 return (
                   <motion.button
                     key={levelId}
-                    className={`${styles.levelCard} ${!isUnlocked ? styles.locked : ''} ${isCurrent ? styles.current : ''}`}
+                    className={`${styles.levelCard} ${!isUnlocked ? styles.locked : ''}`}
                     onClick={() => {
                         if (isUnlocked) {
                             onLevelSelect(levelId);
@@ -112,10 +111,6 @@ export function LevelSelector({ vaultId, onLevelSelect, onBackClick, onTutorialC
                           />
                         ))}
                       </div>
-                    )}
-
-                    {isCurrent && isUnlocked && stars === 0 && (
-                      <div className={styles.newBadge}>NEXT</div>
                     )}
                   </motion.button>
                 );

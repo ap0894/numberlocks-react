@@ -85,7 +85,7 @@ Can you find the minimum number of moves? Challenge yourself to earn 3 stars on 
 
 **Available on the App Store**
 
-*[Download link coming soon]*
+[![Download on the App Store](https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg)](https://apps.apple.com/us/app/number-locks/id1180420632)
 
 ---
 
@@ -141,7 +141,7 @@ NumberLocks is developed by Virtual Team Build, creating engaging puzzle experie
 
 **Ready to play?**
 
-[Download NumberLocks on the App Store](#) *(coming soon)*
+[Download NumberLocks on the App Store](https://apps.apple.com/us/app/number-locks/id1180420632)
 
 ---
 

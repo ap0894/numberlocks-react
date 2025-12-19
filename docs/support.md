@@ -127,7 +127,7 @@ You can see your total stars on the home screen.
 ## More Information
 
 - [Privacy Policy](privacy-policy.md)
-- [App Store Page](#) (coming soon)
+- [App Store Page](https://apps.apple.com/us/app/number-locks/id1180420632)
 
 ---
 
