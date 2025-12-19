@@ -8,8 +8,8 @@
     "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest",
-    "ios:sync": "npm run build && npx cap sync ios",
-    "ios:open": "npm run build && npx cap sync ios && npx cap open ios",
+    "ios:sync": "npm run build && npx cap sync ios && ./scripts/post-cap-sync.sh",
+    "ios:open": "npm run build && npx cap sync ios && ./scripts/post-cap-sync.sh && npx cap open ios",
     "android:sync": "npm run build && npx cap sync android",
     "android:open": "npm run build && npx cap sync android && npx cap open android"
   },

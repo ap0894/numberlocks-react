@@ -11,7 +11,7 @@ NumberLocks ("we", "our", or "the app") is committed to protecting your privacy.
 We collect anonymous usage analytics to improve the game experience. This data is collected through Firebase Analytics and is NOT linked to your identity.
 
 ### Analytics Data Collected:
-- **Game interactions**: Which levels you play, completion rates, moves made, stars earned
+- **Game interactions**: Which levels you play, completion rates, moves made, keys earned
 - **Vault unlocks**: When you unlock new level sets
 - **Tutorial progress**: Whether you've completed the tutorial
 - **App usage**: When you launch the app, which features you use
@@ -33,7 +33,7 @@ The app stores the following information **locally on your device only**:
 
 ### Game Progress
 - Completed levels
-- Stars earned
+- Keys earned
 - Unlocked vaults
 - Current level state
 

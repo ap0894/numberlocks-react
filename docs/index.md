@@ -13,7 +13,7 @@ NumberLocks is a unique puzzle game that combines strategy and math in a beautif
 1. **Swipe** a numbered tile toward another tile
 2. **Subtract** the smaller number from the larger
 3. **Clear** all tiles to complete the level
-4. **Earn stars** based on your efficiency
+4. **Earn keys** based on your efficiency
 
 It's simple to learn but challenging to master!
 
@@ -24,8 +24,8 @@ It's simple to learn but challenging to master!
 ### 🎯 30 Challenging Levels
 Progress through 3 unique vaults, each introducing new mechanics and challenges.
 
-### ⭐ Star Rating System
-Earn up to 3 stars per level based on your performance. Can you achieve the optimal solution?
+### 🔑 Key Rating System
+Earn up to 3 keys per level based on your performance. Can you achieve the optimal solution?
 
 ### 🔓 Progressive Difficulty
 - **Vault 1 - Subtract**: Learn the basics with 4-directional movement
@@ -57,10 +57,10 @@ Play anywhere, anytime - no internet connection required.
 New to NumberLocks? Our interactive tutorial walks you through the basics step-by-step.
 
 ### Progressive Unlocking
-Earn stars to unlock new vaults and discover new gameplay mechanics.
+Earn keys to unlock new vaults and discover new gameplay mechanics.
 
 ### Optimal Solutions
-Can you find the minimum number of moves? Challenge yourself to earn 3 stars on every level!
+Can you find the minimum number of moves? Challenge yourself to earn 3 keys on every level!
 
 ---
 

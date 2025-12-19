@@ -21,21 +21,21 @@ NumberLocks is a number puzzle game where you swipe tiles to subtract numbers an
 - The numbers subtract: larger number - smaller number
 - The result stays on the board
 - Clear all tiles to complete the level
-- Earn stars based on how efficiently you solve each puzzle
+- Earn keys based on how efficiently you solve each puzzle
 
 ### How do I unlock new vaults?
 
-Progress through the game by earning stars:
+Progress through the game by earning keys:
 - **Vault 1 (Subtract)**: Available from the start
-- **Vault 2 (Diagonal)**: Requires 21 stars, unlocks diagonal swipes
-- **Vault 3 (4x4)**: Requires 50 stars, introduces 4x4 grids
+- **Vault 2 (Diagonal)**: Requires 21 keys, unlocks diagonal swipes
+- **Vault 3 (4x4)**: Requires 50 keys, introduces 4x4 grids
 
-### How does the star system work?
+### How does the key system work?
 
-Stars are awarded based on how efficiently you complete a level:
-- ⭐⭐⭐ **3 Stars**: Completed in minimum moves (optimal solution)
-- ⭐⭐ **2 Stars**: Completed efficiently
-- ⭐ **1 Star**: Level completed
+Keys are awarded based on how efficiently you complete a level:
+- 🔑🔑🔑 **3 Keys**: Completed in minimum moves (optimal solution)
+- 🔑🔑 **2 Keys**: Completed efficiently
+- 🔑 **1 Key**: Level completed
 
 ### Can I reset my progress?
 
@@ -116,11 +116,11 @@ Email your suggestions to: [parekh.anup@gmail.com](mailto:parekh.anup@gmail.com)
 3. Contact support if issue persists
 
 ### Can't unlock next vault
-Make sure you've earned enough stars:
-- Vault 2: 21 stars required
-- Vault 3: 50 stars required
+Make sure you've earned enough keys:
+- Vault 2: 21 keys required
+- Vault 3: 50 keys required
 
-You can see your total stars on the home screen.
+You can see your total keys on the home screen.
 
 ---
 
