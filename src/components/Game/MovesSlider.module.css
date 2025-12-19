@@ -8,11 +8,49 @@
   border-radius: 12px;
 }
 
-.sliderLabel {
-  text-align: center;
-  font-size: 1.2rem;
+/* Top Keys Display */
+.topKeysDisplay {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+}
+
+.topKey {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topKeyIcon {
+  width: 28px;
+  height: 28px;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+.lostKey .topKeyIcon {
+  filter: grayscale(100%) brightness(0.5);
+}
+
+.strikethrough {
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background: #cc324b;
+  transform: rotate(-15deg);
+  top: 50%;
+  left: 0;
+}
+
+.movesLabel {
+  margin-left: auto;
+  font-size: 1rem;
   font-weight: bold;
-  margin-bottom: 15px;
   color: #fff;
 }
 
@@ -82,53 +120,43 @@
   box-shadow: 0 2px 8px rgba(74, 144, 226, 0.6);
 }
 
-/* Key markers (star thresholds) */
-.keyMarker {
+/* Threshold markers with labels */
+.thresholdMarker {
   position: absolute;
-  top: -30px;
-  transform: translateX(-50%);
-  z-index: 4;
-  pointer-events: auto;
-}
-
-.keyIcon {
-  width: 24px;
-  height: 24px;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-  transition: transform 0.2s ease;
-}
-
-.keyMarker:hover .keyIcon {
-  transform: scale(1.2);
-}
-
-.threeStarMarker .keyIcon {
-  filter: drop-shadow(0 0 8px rgba(76, 217, 100, 0.8));
-}
-
-.twoStarMarker .keyIcon {
-  filter: drop-shadow(0 0 8px rgba(255, 204, 0, 0.8));
-}
-
-.oneStarMarker .keyIcon {
-  opacity: 0.6;
-}
-
-.starDisplay {
   display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 20px;
+  flex-direction: column;
+  align-items: center;
+  transform: translateX(-50%);
+  bottom: -50px;
+  pointer-events: none;
+  z-index: 4;
 }
 
-.starIcon {
-  width: 32px;
-  height: 32px;
-  transition: transform 0.2s;
+.thresholdLabel {
+  font-family: 'Raleway', 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 2px;
 }
 
-.starIcon:hover {
-  transform: scale(1.1);
+.thresholdSubLabel {
+  font-family: 'Raleway', sans-serif;
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.7);
+  white-space: nowrap;
+}
+
+.threeStarMarker {
+  color: #38ef7d;
+}
+
+.twoStarMarker {
+  color: #fcb150;
+}
+
+.oneStarMarker {
+  color: rgba(255, 255, 255, 0.5);
 }
 
 /* Responsive */
@@ -138,21 +166,24 @@
     padding: 15px;
   }
 
-  .sliderLabel {
-    font-size: 1rem;
+  .movesLabel {
+    font-size: 0.9rem;
   }
 
   .moveNumber {
     font-size: 0.6rem;
   }
 
-  .keyIcon {
-    width: 20px;
-    height: 20px;
-  }
-
-  .starIcon {
+  .topKeyIcon {
     width: 24px;
     height: 24px;
+  }
+
+  .thresholdLabel {
+    font-size: 12px;
+  }
+
+  .thresholdSubLabel {
+    font-size: 10px;
   }
 }

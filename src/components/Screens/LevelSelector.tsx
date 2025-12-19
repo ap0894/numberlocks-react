@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { VAULTS } from '@/config/constants.ts';
 import { useProgressStore } from '@/store/progressStore.ts';
 import { audioService } from '@/services/AudioService';
+import { ScreenHeader } from '@/components/UI/ScreenHeader';
 import styles from './LevelSelector.module.css';
 
 interface LevelSelectorProps {
@@ -15,14 +16,14 @@ interface LevelSelectorProps {
 
 export function LevelSelector({ vaultId, onLevelSelect, onBackClick, onTutorialClick, onSettingsClick }: LevelSelectorProps) {
   const vault = VAULTS.find((v) => v.id === vaultId);
-  const { levelStars, highestLevel, totalStars, isLevelUnlocked } = useProgressStore();
+  const { levelStars, highestLevel, isLevelUnlocked } = useProgressStore();
   const [currentPage, setCurrentPage] = useState(0);
 
   if (!vault) {
     return <div>Vault not found</div>;
   }
 
-  const levelsPerPage = 10;
+  const levelsPerPage = 10; // 3 columns layout with 10 levels total
   const totalPages = Math.ceil(vault.levels.length / levelsPerPage);
   const startIdx = currentPage * levelsPerPage;
   const endIdx = startIdx + levelsPerPage;
@@ -42,27 +43,7 @@ export function LevelSelector({ vaultId, onLevelSelect, onBackClick, onTutorialC
 
   return (
     <div className={styles.container}>
-      {/* Back Button - top left */}
-      <motion.button
-        className={styles.backButton}
-        onClick={onBackClick}
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <img src="/img/back.svg" alt="Back" className={styles.backIcon} />
-      </motion.button>
-
-      {/* Persistent Key Count - top right */}
-      <motion.div
-        className={styles.keyCount}
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <img src="/img/key.svg" alt="Total Keys" className={styles.keyCountIcon} />
-        <span className={styles.keyCountNumber}>{totalStars}</span>
-      </motion.div>
+      <ScreenHeader onBackClick={onBackClick} />
 
       {/* Header - centered title */}
       <motion.div

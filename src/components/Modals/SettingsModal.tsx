@@ -14,7 +14,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
 
   const handleReset = () => {
     const confirmed = window.confirm(
-      'Are you sure you want to reset all progress? This will delete all your level completions and stars.'
+      'Are you sure you want to reset all progress? This will delete all your level completions and keys.'
     );
     if (confirmed) {
       resetProgress();
@@ -75,7 +75,7 @@ export function SettingsModal({ isOpen, onClose }: SettingsModalProps) {
                 <div className={styles.settingInfo}>
                   <div className={styles.settingLabel}>Reset Progress</div>
                   <div className={styles.settingDescription}>
-                    Delete all level completions and stars
+                    Delete all level completions and reset collected keys
                   </div>
                 </div>
 

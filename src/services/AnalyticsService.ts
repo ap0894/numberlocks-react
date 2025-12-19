@@ -1,3 +1,6 @@
+import { Capacitor } from '@capacitor/core';
+import { FirebaseAnalytics } from '@capacitor-firebase/analytics';
+
 export type AnalyticsEvent =
   | 'level_start'
   | 'level_complete'
@@ -13,6 +16,11 @@ interface AnalyticsParams {
 
 class AnalyticsManager {
   private isInitialized: boolean = false;
+  private isNative: boolean;
+
+  constructor() {
+    this.isNative = Capacitor.isNativePlatform();
+  }
 
   /**
    * Initialize analytics (call on app start)
@@ -21,9 +29,13 @@ class AnalyticsManager {
     if (this.isInitialized) return;
 
     try {
-      // In production, initialize Firebase Analytics here
-      // For now, we'll just log to console
-      console.log('Analytics service initialized');
+      if (this.isNative) {
+        // Initialize Firebase Analytics on native platforms
+        await FirebaseAnalytics.setEnabled({ enabled: true });
+        console.log('Firebase Analytics initialized');
+      } else {
+        console.log('Analytics disabled on web platform');
+      }
       this.isInitialized = true;
     } catch (error) {
       console.error('Analytics initialization failed:', error);
@@ -39,13 +51,17 @@ class AnalyticsManager {
     }
 
     try {
-      // In production, this would call Firebase Analytics
-      // For now, log to console
-      console.log(`Analytics Event: ${eventName}`, params || {});
-
-      // Example implementation with Firebase Analytics:
-      // const { FirebaseAnalytics } = await import('@capacitor-firebase/analytics');
-      // await FirebaseAnalytics.logEvent({ name: eventName, params });
+      if (this.isNative) {
+        // Log to Firebase Analytics
+        await FirebaseAnalytics.logEvent({
+          name: eventName,
+          params: params || {}
+        });
+        console.log(`Analytics Event: ${eventName}`, params || {});
+      } else {
+        // Fall back to console on web
+        console.log(`Analytics Event (web): ${eventName}`, params || {});
+      }
     } catch (error) {
       console.warn('Failed to log analytics event:', error);
     }

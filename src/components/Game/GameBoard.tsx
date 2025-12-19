@@ -17,7 +17,7 @@ interface GameBoardProps {
  * Combines grid, lines, and tiles
  */
 export function GameBoard({ levelId }: GameBoardProps) {
-  const { initLevel, tiles, makeMove } = useGameStore();
+  const { initLevel, tiles, moves, makeMove } = useGameStore();
 
   // Initialize level on mount or when levelId changes
   useEffect(() => {
@@ -37,8 +37,9 @@ export function GameBoard({ levelId }: GameBoardProps) {
   const enableDiagonal = levelNumber >= DIAGONAL_UNLOCK_LEVEL;
 
   // Check if this is a tutorial level that should show hand gestures
+  // Hide hand after first move (when moves > 0)
   const isTutorialLevel = levelId.startsWith('level-') || levelId === 'level11';
-  const showTutorialHand = isTutorialLevel && (
+  const showTutorialHand = isTutorialLevel && moves === 0 && (
     levelId === 'level-1' ||
     levelId === 'level-2' ||
     levelId === 'level-3' ||

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
-export type Screen = 'home' | 'vaults' | 'levels' | 'game';
+export type Screen = 'home' | 'vaults' | 'levels' | 'game' | 'settings';
 
 interface NavigationState {
   currentScreen: Screen;
@@ -16,6 +16,8 @@ interface NavigationStore extends NavigationState {
   navigateToVaults: () => void;
   navigateToLevels: (vaultId: number) => void;
   navigateToGame: (levelId: string) => void;
+  navigateToGameReplace: (levelId: string) => void;
+  navigateToSettings: () => void;
   goBack: () => void;
   clearHistory: () => void;
 }
@@ -67,6 +69,24 @@ export const useNavigationStore = create<NavigationStore>()(
         set({
           currentScreen: 'game',
           selectedLevel: levelId,
+          history: [...state.history, state.currentScreen]
+        });
+      },
+
+      // Navigate to game screen without adding to history (for level progression)
+      navigateToGameReplace: (levelId: string) => {
+        set({
+          currentScreen: 'game',
+          selectedLevel: levelId
+          // Note: history is not modified
+        });
+      },
+
+      // Navigate to settings screen
+      navigateToSettings: () => {
+        const state = get();
+        set({
+          currentScreen: 'settings',
           history: [...state.history, state.currentScreen]
         });
       },

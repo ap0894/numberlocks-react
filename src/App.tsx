@@ -5,28 +5,30 @@ import { HomeScreen } from './components/Screens/HomeScreen';
 import { VaultScreen } from './components/Screens/VaultScreen';
 import { LevelSelector } from './components/Screens/LevelSelector';
 import { GameScreen } from './components/Screens/GameScreen';
+import { SettingsScreen } from './components/Screens/SettingsScreen';
 import { GameOverModal } from './components/Modals/GameOverModal';
 import { TutorialModal } from './components/Modals/TutorialModal';
-import { SettingsModal } from './components/Modals/SettingsModal';
 import { useNavigationStore } from './store/navigationStore';
 import { useGameStore } from './store/gameStore';
 import { useProgressStore } from './store/progressStore';
 import { VAULTS } from './config/constants';
 import './App.css';
 import {audioService} from "@/services/AudioService.ts";
+import {analyticsService} from "@/services/AnalyticsService.ts";
 
 function App() {
-  const { currentScreen, selectedVault, selectedLevel, navigateToVaults, navigateToLevels, navigateToGame, goBack } = useNavigationStore();
+  const { currentScreen, selectedVault, selectedLevel, navigateToVaults, navigateToLevels, navigateToGame, navigateToGameReplace, navigateToSettings, goBack } = useNavigationStore();
   const { totalStars } = useProgressStore();
 
   const [showGameOverModal, setShowGameOverModal] = useState(false);
   const [showTutorialModal, setShowTutorialModal] = useState(false);
-  const [showSettingsModal, setShowSettingsModal] = useState(false);
 
   useEffect(() => {
     // Initialize Capacitor plugins on mount
     initializeCapacitor();
     audioService.initialize();
+    analyticsService.initialize();
+    analyticsService.logAppLaunch();
   }, []);
 
   const handlePlayClick = () => {
@@ -62,8 +64,8 @@ function App() {
     if (selectedLevel?.startsWith('level-')) {
       const tutorialNumber = parseInt(selectedLevel.replace('level-', ''), 10);
       if (tutorialNumber < 4) {
-        // Go to next tutorial level
-        navigateToGame(`level-${tutorialNumber + 1}`);
+        // Go to next tutorial level (replace, don't add to history)
+        navigateToGameReplace(`level-${tutorialNumber + 1}`);
       } else {
         // Completed all tutorials, show vaults
         const { completeTutorial } = useProgressStore.getState();
@@ -81,7 +83,8 @@ function App() {
     const currentIndex = vault.levels.indexOf(selectedLevel);
     if (currentIndex >= 0 && currentIndex < vault.levels.length - 1) {
       const nextLevel = vault.levels[currentIndex + 1];
-      navigateToGame(nextLevel);
+      // Go to next level (replace, don't add to history)
+      navigateToGameReplace(nextLevel);
     } else {
       // Last level in vault, go back to level selector
       goBack();
@@ -94,11 +97,7 @@ function App() {
   };
 
   const handleSettingsClick = () => {
-    setShowSettingsModal(true);
-  };
-
-  const handleSettingsClose = () => {
-    setShowSettingsModal(false);
+    navigateToSettings();
   };
 
   const handleTutorialClick = () => {
@@ -182,7 +181,20 @@ function App() {
               levelId={selectedLevel}
               onBackClick={handleBackFromGame}
               onGameOver={handleGameOver}
+              onSettingsClick={handleSettingsClick}
             />
+          </motion.div>
+        )}
+
+        {currentScreen === 'settings' && (
+          <motion.div
+            key="settings"
+            initial={{ opacity: 0, x: 100 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -100 }}
+            transition={{ duration: 0.3 }}
+          >
+            <SettingsScreen onClose={goBack} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -203,11 +215,6 @@ function App() {
         onClose={handleTutorialClose}
         onStart={handleTutorialStart}
         isFirstTime={true}
-      />
-
-      <SettingsModal
-        isOpen={showSettingsModal}
-        onClose={handleSettingsClose}
       />
     </div>
   );

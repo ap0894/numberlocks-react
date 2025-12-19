@@ -43,19 +43,19 @@ export function TutorialHand({ levelId }: TutorialHandProps) {
         };
 
       case 'level-3':
-        // Vertical swipe - starts top right (5 tile), moves down to bottom right (4 tile)
+        // Vertical swipe - starts bottom right (4 tile), moves up to top right (5 tile)
         return {
           className: styles.hand,
           animate: {
-            x: [20, 20, 20],
-            y: [-6, 34, 34],
-            opacity: [0, 1, 0]
+            x: [20, 20, 20, 20],
+            y: [34, 34, -6, -6],
+            opacity: [0, 1, 1, 0]
           },
           transition: {
             duration: 2.5,
             repeat: Infinity,
             repeatDelay: 0.5,
-            times: [0, 0.5, 1]
+            times: [0, 0.2, 0.6, 1]
           }
         };
 

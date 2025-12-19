@@ -14,7 +14,7 @@ export function TutorialOverlay({ levelId }: TutorialOverlayProps) {
     return null;
   }
 
-  // Extract subtitle (part after colon, e.g., "NO NEGATIVES" from "LESSON 2.1: NO NEGATIVES")
+  // Extract subtitle (part after colon, e.g., "SUBTRACTION" from "LESSON 1: SUBTRACTION")
   const colonIndex = lesson.title.indexOf(':');
   const subtitle = colonIndex !== -1 ? lesson.title.substring(colonIndex + 1).trim() : lesson.title;
 

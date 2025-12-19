@@ -9,7 +9,7 @@ export const TUTORIAL_LESSONS: TutorialLesson[] = [
   {
     id: 'lesson1',
     title: 'LESSON 1: SUBTRACTION',
-    text: 'Swipe one tile onto another, they subtract! Clear all tiles to complete the level.',
+    text: 'Swipe tiles to subtract them from each other',
     level: 'level-1'
   },
   {
@@ -34,7 +34,7 @@ export const TUTORIAL_LESSONS: TutorialLesson[] = [
   {
     id: 'lesson4',
     title: 'LESSON 4: KEYS',
-    text: 'Less moves = More keys! <br /><br />Keys unlock new levels!',
+    text: 'Less moves = More keys!<br />Keys unlock new levels!',
     level: 'level-4'
   }
 ];

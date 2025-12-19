@@ -4,23 +4,28 @@ import styles from './MovesSlider.module.css';
 
 interface MovesSliderProps {
   moves: number;
-  stars: number;
   levelId: string;
 }
 
 /**
- * Custom slider showing moves and star thresholds
- * Fixed 10-move scale with position markers
+ * Custom slider showing moves and key thresholds
+ * Dynamic scale (10-20 moves) based on level thresholds
  */
-export function MovesSlider({ moves, stars, levelId }: MovesSliderProps) {
+export function MovesSlider({ moves, levelId }: MovesSliderProps) {
   const thresholds = getStarThresholds(levelId);
 
   if (!thresholds) return null;
 
-  // Fixed 10-move scale
-  const maxMoves = 10;
+  // Dynamic scale based on level thresholds
+  // Use the highest threshold value, with min 10 and max 20
+  const highestThreshold = Math.max(
+    thresholds.three,
+    thresholds.two.max,
+    thresholds.one.max
+  );
+  const maxMoves = Math.min(20, Math.max(10, highestThreshold + 2));
 
-  // Calculate positions as percentages (0-10 scale)
+  // Calculate positions as percentages (0-maxMoves scale)
   const threeStarPos = (thresholds.three / maxMoves) * 100;
   const twoStarPos = (thresholds.two.min / maxMoves) * 100;
   const oneStarPos = (thresholds.one.min / maxMoves) * 100;
@@ -31,7 +36,37 @@ export function MovesSlider({ moves, stars, levelId }: MovesSliderProps) {
 
   return (
     <div className={styles.sliderContainer}>
-      <div className={styles.sliderLabel}>Moves: {moves}</div>
+      {/* Top Keys Display - shows which keys are still achievable */}
+      <div className={styles.topKeysDisplay}>
+        {[3, 2, 1].map((starLevel) => {
+          const threshold = starLevel === 3 ? thresholds.three
+                          : starLevel === 2 ? thresholds.two.min
+                          : thresholds.one.min;
+
+          const isLost = moves > threshold;
+
+          return (
+            <motion.div
+              key={starLevel}
+              className={`${styles.topKey} ${isLost ? styles.lostKey : ''}`}
+              initial={false}
+              animate={{
+                opacity: isLost ? 0.3 : 1,
+                scale: isLost ? 0.9 : 1
+              }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+            >
+              <img
+                src={isLost ? '/img/keyoffgrey.svg' : '/img/key.svg'}
+                alt={`${starLevel} keys`}
+                className={styles.topKeyIcon}
+              />
+              {isLost && <div className={styles.strikethrough} />}
+            </motion.div>
+          );
+        })}
+        <div className={styles.movesLabel}>Moves: {moves}</div>
+      </div>
 
       <div className={styles.sliderTrack}>
         {/* Move number markers */}
@@ -61,48 +96,36 @@ export function MovesSlider({ moves, stars, levelId }: MovesSliderProps) {
           <div className={styles.indicatorDot} />
         </motion.div>
 
-        {/* Star threshold key markers */}
+        {/* Threshold markers with labels */}
         {thresholds.three <= maxMoves && (
           <div
-            className={`${styles.keyMarker} ${styles.threeStarMarker}`}
+            className={`${styles.thresholdMarker} ${styles.threeStarMarker}`}
             style={{ left: `${threeStarPos}%` }}
-            title={`3 stars: ${thresholds.three} moves`}
           >
-            <img src="/img/key.svg" alt="3 stars" className={styles.keyIcon} />
+            <div className={styles.thresholdLabel}>{thresholds.three}</div>
+            <div className={styles.thresholdSubLabel}>3🔑</div>
           </div>
         )}
 
         {thresholds.two.min <= maxMoves && (
           <div
-            className={`${styles.keyMarker} ${styles.twoStarMarker}`}
+            className={`${styles.thresholdMarker} ${styles.twoStarMarker}`}
             style={{ left: `${twoStarPos}%` }}
-            title={`2 stars: ${thresholds.two.min}-${thresholds.two.max} moves`}
           >
-            <img src="/img/key.svg" alt="2 stars" className={styles.keyIcon} />
+            <div className={styles.thresholdLabel}>{thresholds.two.min}</div>
+            <div className={styles.thresholdSubLabel}>2🔑</div>
           </div>
         )}
 
         {thresholds.one.min <= maxMoves && (
           <div
-            className={`${styles.keyMarker} ${styles.oneStarMarker}`}
+            className={`${styles.thresholdMarker} ${styles.oneStarMarker}`}
             style={{ left: `${oneStarPos}%` }}
-            title={`1 star: ${thresholds.one.min}+ moves`}
           >
-            <img src="/img/keyoff.svg" alt="1 star" className={styles.keyIcon} />
+            <div className={styles.thresholdLabel}>{thresholds.one.min}</div>
+            <div className={styles.thresholdSubLabel}>1🔑</div>
           </div>
         )}
-      </div>
-
-      {/* Current star rating display */}
-      <div className={styles.starDisplay}>
-        {[1, 2, 3].map((star) => (
-          <img
-            key={star}
-            src={star <= stars ? '/img/key.svg' : '/img/keyoff.svg'}
-            alt={`Star ${star}`}
-            className={styles.starIcon}
-          />
-        ))}
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import { VAULTS } from '@/config/constants.ts';
 import { useProgressStore } from '@/store/progressStore.ts';
+import { ScreenHeader } from '@/components/UI/ScreenHeader';
 import styles from './VaultScreen.module.css';
 
 interface VaultScreenProps {
@@ -13,29 +14,14 @@ interface VaultScreenProps {
 export function VaultScreen({ onVaultSelect, onBackClick, onTutorialClick, onSettingsClick }: VaultScreenProps) {
   const { totalStars, highestVault } = useProgressStore();
 
+  const getVaultIcon = (vaultId: number, isUnlocked: boolean) => {
+    const state = isUnlocked ? 'Open' : 'Lock';
+    return `/img/${vaultId}${state}.svg`;
+  };
+
   return (
     <div className={styles.container}>
-      {/* Back Button - top left */}
-      <motion.button
-        className={styles.backButton}
-        onClick={onBackClick}
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <img src="/img/back.svg" alt="Back" className={styles.backIcon} />
-      </motion.button>
-
-      {/* Persistent Key Count - top right */}
-      <motion.div
-        className={styles.keyCount}
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <img src="/img/key.svg" alt="Total Keys" className={styles.keyCountIcon} />
-        <span className={styles.keyCountNumber}>{totalStars}</span>
-      </motion.div>
+      <ScreenHeader onBackClick={onBackClick} />
 
       {/* Header - centered title */}
       <motion.div
@@ -78,11 +64,11 @@ export function VaultScreen({ onVaultSelect, onBackClick, onTutorialClick, onSet
                 whileTap={isUnlocked ? { scale: 0.95 } : {}}
               >
                 <div className={styles.vaultIcon}>
-                  {isUnlocked ? (
-                    <img src="/img/padlocknew.svg" alt="Unlocked" className={styles.lockIcon} />
-                  ) : (
-                    <img src="/img/locked.svg" alt="Locked" className={styles.lockIcon} />
-                  )}
+                  <img
+                    src={getVaultIcon(vault.id, isUnlocked)}
+                    alt={isUnlocked ? 'Unlocked' : 'Locked'}
+                    className={styles.lockIcon}
+                  />
                 </div>
 
                 <div className={styles.vaultInfo}>
@@ -94,11 +80,11 @@ export function VaultScreen({ onVaultSelect, onBackClick, onTutorialClick, onSet
 
                 {!isUnlocked && (
                   <div className={styles.requirement}>
-                    <img src="/img/keyblue.svg" alt="Required" className={styles.reqKeyIcon} />
+                    <img src="/img/key.svg" alt="Required" className={styles.reqKeyIcon} />
                     <div className={styles.requirementText}>
-                      <span className={styles.requirementLabel}>Requires</span>
+                      <span className={styles.requirementLabel}>Required</span>
                       <span className={styles.requirementValue}>
-                        {totalStars}/{vault.requiredStars}
+                        {vault.requiredStars}
                       </span>
                     </div>
                   </div>

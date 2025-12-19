@@ -4,8 +4,8 @@ import { GameBoard } from '../Game/GameBoard';
 import { MovesSlider } from '../Game/MovesSlider';
 import { TutorialOverlay } from '../Game/TutorialOverlay';
 import { TutorialModal } from '../Modals/TutorialModal';
+import { ScreenHeader } from '@/components/UI/ScreenHeader';
 import { useGameStore } from '@/store/gameStore.ts';
-import { useProgressStore } from '@/store/progressStore.ts';
 import { TUTORIAL_LESSONS } from '@/config/constants.ts';
 import styles from './GameScreen.module.css';
 
@@ -15,11 +15,11 @@ interface GameScreenProps {
   onGameOver: () => void;
   onPauseClick?: () => void;
   onLessonStart?: () => void;
+  onSettingsClick?: () => void;
 }
 
-export function GameScreen({ levelId, onBackClick, onGameOver, onPauseClick, onLessonStart }: GameScreenProps) {
-  const { currentLevel, moves, stars, isComplete, isGameOver, tiles, initLevel, resetLevel } = useGameStore();
-  const { totalStars } = useProgressStore();
+export function GameScreen({ levelId, onBackClick, onGameOver, onPauseClick, onLessonStart, onSettingsClick }: GameScreenProps) {
+  const { currentLevel, moves, isComplete, isGameOver, tiles, initLevel, resetLevel } = useGameStore();
   const [showLessonModal, setShowLessonModal] = useState(false);
   const [currentLessonId, setCurrentLessonId] = useState<string | null>(null);
   const pairTutorialShownRef = useRef(false);
@@ -102,27 +102,7 @@ export function GameScreen({ levelId, onBackClick, onGameOver, onPauseClick, onL
       {/* Tutorial Overlay - shows instructions on screen for tutorial levels */}
       {isTutorialLevel && <TutorialOverlay levelId={levelId} />}
 
-      {/* Back Button - positioned at top left */}
-      <motion.button
-        className={styles.backButton}
-        onClick={onBackClick}
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <img src="/img/back.svg" alt="Back" className={styles.backIcon} />
-      </motion.button>
-
-      {/* Key Count Display - positioned at top right */}
-      <motion.div
-        className={styles.keyCount}
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <img src="/img/key.svg" alt="Keys" className={styles.keyCountIcon} />
-        <span className={styles.keyCountNumber}>{totalStars}</span>
-      </motion.div>
+      <ScreenHeader onBackClick={onBackClick} />
 
       {/* Header - level title and pause */}
       <motion.div
@@ -161,7 +141,7 @@ export function GameScreen({ levelId, onBackClick, onGameOver, onPauseClick, onL
       >
         {/* Moves Slider */}
         <div className={styles.sliderWrapper}>
-          <MovesSlider moves={moves} stars={stars} levelId={levelId} />
+          <MovesSlider moves={moves} levelId={levelId} />
         </div>
 
         {/* Control Buttons */}
@@ -177,6 +157,19 @@ export function GameScreen({ levelId, onBackClick, onGameOver, onPauseClick, onL
           </motion.button>
         </div>
       </motion.div>
+
+      {/* Settings button - bottom right */}
+      {onSettingsClick && (
+        <motion.button
+          className={styles.settingsButton}
+          onClick={onSettingsClick}
+          whileHover={{ rotate: 90 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: 'spring', stiffness: 200 }}
+        >
+          <img src="/img/settings.svg" alt="Settings" className={styles.settingsIcon} />
+        </motion.button>
+      )}
     </div>
 
     {/* Lesson Modal */}

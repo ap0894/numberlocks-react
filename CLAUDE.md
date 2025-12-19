@@ -16,7 +16,13 @@ npx tsc --noEmit              # Type check without emitting files
 
 ### Mobile Development (Capacitor)
 ```bash
-# After npm run build, sync and open in native IDEs:
+# Convenience scripts (recommended):
+npm run ios:sync              # Build web app + sync to iOS
+npm run ios:open              # Build web app + sync to iOS + open Xcode
+npm run android:sync          # Build web app + sync to Android
+npm run android:open          # Build web app + sync to Android + open Android Studio
+
+# Manual Capacitor commands:
 npx cap sync android          # Sync web build to Android
 npx cap open android          # Open Android Studio
 npx cap run android           # Build and run on Android device/emulator
@@ -38,7 +44,7 @@ npm run test -- gameLogic     # Run specific test file
 
 ### State Management (Zustand)
 
-The app uses **Zustand** with four separate stores, each using `persist` middleware for automatic localStorage synchronization:
+The app uses **Zustand** with four separate stores, some using `persist` middleware with **Capacitor Preferences** for cross-platform storage:
 
 1. **gameStore** (`src/store/gameStore.ts`) - Current game session state
    - Manages active tiles, moves, stars, completion status
@@ -47,17 +53,18 @@ The app uses **Zustand** with four separate stores, each using `persist` middlew
 
 2. **progressStore** (`src/store/progressStore.ts`) - Player progression data
    - Tracks completed levels, earned stars, unlocked vaults
-   - Includes migration logic from legacy Cordova app (see `migrate` function)
-   - Persisted to localStorage as `numberlocks-progress`
+   - Persisted via **@capacitor/preferences** (key: `numberlocks-progress`)
+   - Includes migration logic from localStorage and legacy Cordova app
    - Key actions: `updateLevelProgress()`, `unlockVault()`, `isLevelUnlocked()`
 
 3. **settingsStore** (`src/store/settingsStore.ts`) - App settings
    - Sound effects, haptics, and other user preferences
-   - Persisted to localStorage
+   - Persisted via **@capacitor/preferences** (key: `numberlocks-settings`)
+   - Includes migration logic from localStorage
 
 4. **navigationStore** (`src/store/navigationStore.ts`) - Screen navigation
    - Manages screen history and navigation state
-   - Screens: `'home' | 'vaults' | 'levels' | 'game'`
+   - Screens: `'home' | 'vaults' | 'levels' | 'game' | 'settings'`
    - NOT persisted (session-only)
 
 ### Core Game Logic
@@ -158,8 +165,10 @@ From `src/config/constants.ts`:
 ### Zustand Store Updates
 - Use `set()` for state updates, never mutate state directly
 - Use `get()` to access current state within actions
-- Persist middleware automatically syncs to localStorage
+- Persist middleware uses custom **Capacitor Preferences** storage adapter (`src/utils/capacitorStorage.ts`)
+- Storage works cross-platform (web, iOS, Android) and meets iOS privacy requirements
 - DevTools middleware enabled for debugging in browser
+- Automatic migration from localStorage to Capacitor Preferences on first load
 
 ### Platform-Specific Code
 ```typescript
@@ -175,4 +184,15 @@ if (Capacitor.isNativePlatform()) {
 ```
 
 ### Migration from Legacy App
-The `progressStore` includes automatic migration logic that reads from old localStorage keys (`tutorialComplete`, `highestLevel`, `totalStars`) and converts them to the new Zustand format. This runs once on first load via the `migrate` function in the persist middleware.
+Both `progressStore` and `settingsStore` include automatic migration logic that:
+1. First checks for Zustand localStorage data (version 1) and migrates to Capacitor Preferences
+2. Then checks for old Cordova app keys (`tutorialComplete`, `highestLevel`, `totalStars`, `soundFx`)
+3. Converts legacy data to the new format
+4. Removes old localStorage keys after successful migration
+This runs once on first load via the `migrate` function in the persist middleware.
+
+### iOS Privacy Manifest
+The app includes a `PrivacyInfo.xcprivacy` file at `ios/App/App/PrivacyInfo.xcprivacy` that declares:
+- **NSPrivacyAccessedAPICategoryUserDefaults** with reason **CA92.1** (reading and writing user preferences)
+- No tracking or data collection
+This is required for App Store submission and reflects the use of Capacitor Preferences for data storage.

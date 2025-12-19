@@ -11,62 +11,6 @@
   box-sizing: border-box;
 }
 
-.backButton {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  border-radius: 50%;
-  width: 45px;
-  height: 45px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  z-index: 10;
-}
-
-.backButton:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: scale(1.1);
-}
-
-.backIcon {
-  width: 22px;
-  height: 22px;
-  filter: brightness(0) invert(1);
-}
-
-.keyCount {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 22px;
-  padding: 8px 16px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  z-index: 10;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-.keyCountIcon {
-  width: 24px;
-  height: 24px;
-  filter: brightness(0) invert(1);
-}
-
-.keyCountNumber {
-  font-family: 'Raleway', 'Orbitron', sans-serif;
-  font-size: 18px;
-  font-weight: 700;
-  color: #ffffff;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-}
-
 .header {
   width: 100%;
   max-width: 300px;
@@ -110,7 +54,7 @@
 
 .levelsGrid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 15px;
   width: 100%;
 }

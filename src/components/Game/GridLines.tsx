@@ -79,17 +79,19 @@ export function GridLines({ size, enableDiagonal, tileCount }: GridLinesProps) {
 
   // Diagonal lines (only for levels 11+)
   if (enableDiagonal) {
+    const diagonalLength = Math.sqrt(2) * lineLength;
+
     // Diagonal from top-left to bottom-right
     lines.push(
       <div
         key="diag-1"
         className={styles.diagonalLine}
         style={{
-          width: Math.sqrt(2) * gridDimension,
+          width: diagonalLength,
           transform: `rotate(45deg)`,
           transformOrigin: '0 0',
-          top: 0,
-          left: 0
+          top: centerOffset,
+          left: centerOffset
         }}
       />
     );
@@ -100,11 +102,11 @@ export function GridLines({ size, enableDiagonal, tileCount }: GridLinesProps) {
         key="diag-2"
         className={styles.diagonalLine}
         style={{
-          width: Math.sqrt(2) * gridDimension,
+          width: diagonalLength,
           transform: `rotate(-45deg)`,
           transformOrigin: '100% 0',
-          top: 0,
-          right: 0
+          top: centerOffset,
+          right: centerOffset
         }}
       />
     );

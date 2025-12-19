@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { persist, devtools } from 'zustand/middleware';
 import { ProgressState } from '../types/game.types';
 import { LEVEL_ORDER } from '../config/levels';
+import { capacitorStorage } from '../utils/capacitorStorage';
 
 interface ProgressStore extends ProgressState {
   // Actions
@@ -34,9 +35,13 @@ export const useProgressStore = create<ProgressStore>()(
             const starDelta = stars - currentStars;
             const levelIndex = LEVEL_ORDER.indexOf(levelId);
 
+            // Tutorial levels (level-1, level-2, etc.) don't count towards total stars
+            const isTutorialLevel = levelId.startsWith('level-');
+            const newTotalStars = isTutorialLevel ? state.totalStars : state.totalStars + starDelta;
+
             set({
               levelStars: { ...state.levelStars, [levelId]: stars },
-              totalStars: state.totalStars + starDelta,
+              totalStars: newTotalStars,
               // Unlock next level
               highestLevel: Math.max(state.highestLevel, levelIndex + 2) // +2 because index is 0-based and we want next level
             });
@@ -86,26 +91,53 @@ export const useProgressStore = create<ProgressStore>()(
         }
       }),
       {
-        name: 'numberlocks-progress', // localStorage key
-        version: 1,
-        // Migrate old localStorage data if needed
+        name: 'numberlocks-progress',
+        storage: capacitorStorage,
+        version: 2,
+        // Migrate old data from localStorage and Cordova app
         migrate: (persistedState: any, version: number) => {
-          if (version === 0) {
-            // Check for old cordova app data
-            const oldTutorialComplete = localStorage.getItem('tutorialComplete');
-            const oldHighestLevel = localStorage.getItem('highestLevel');
-            const oldTotalStars = localStorage.getItem('totalStars');
+          // If version is 0 or 1, migrate from localStorage
+          if (version < 2) {
+            try {
+              // First check for Zustand localStorage data (version 1)
+              const zustandData = localStorage.getItem('numberlocks-progress');
+              if (zustandData) {
+                const parsed = JSON.parse(zustandData);
+                // Remove from localStorage after migration
+                localStorage.removeItem('numberlocks-progress');
+                return parsed.state || persistedState;
+              }
 
-            if (oldTutorialComplete || oldHighestLevel || oldTotalStars) {
-              return {
-                ...persistedState,
-                tutorialComplete: oldTutorialComplete === 'true',
-                highestLevel: parseInt(oldHighestLevel || '5', 10),
-                totalStars: parseInt(oldTotalStars || '0', 10)
-              };
+              // Then check for old Cordova app data (version 0)
+              const oldTutorialComplete = localStorage.getItem('tutorialComplete');
+              const oldHighestLevel = localStorage.getItem('highestLevel');
+              const oldTotalStars = localStorage.getItem('totalStars');
+
+              if (oldTutorialComplete || oldHighestLevel || oldTotalStars) {
+                // Clean up old localStorage keys
+                localStorage.removeItem('tutorialComplete');
+                localStorage.removeItem('highestLevel');
+                localStorage.removeItem('totalStars');
+
+                return {
+                  ...persistedState,
+                  tutorialComplete: oldTutorialComplete === 'true',
+                  highestLevel: parseInt(oldHighestLevel || '5', 10),
+                  totalStars: parseInt(oldTotalStars || '0', 10)
+                };
+              }
+            } catch (error) {
+              console.error('[ProgressStore] Error migrating progress data:', error);
             }
           }
           return persistedState;
+        },
+        onRehydrateStorage: () => {
+          return (_state, error) => {
+            if (error) {
+              console.error('[ProgressStore] Hydration error:', error);
+            }
+          };
         }
       }
     ),
