@@ -135,7 +135,7 @@ Follow development and get notified of new levels and features:
 
 ## About the Developer
 
-NumberLocks is developed by Virtual Team Build, creating engaging puzzle experiences that challenge and entertain.
+NumberLocks is developed by Anup Parekh, creating engaging puzzle experiences that challenge and entertain.
 
 ---
 
