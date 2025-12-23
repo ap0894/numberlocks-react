@@ -33,6 +33,7 @@
     "zustand": "^4.5.0"
   },
   "devDependencies": {
+    "@capacitor/assets": "^3.0.5",
     "@capacitor/cli": "^8.0.0",
     "@types/hammerjs": "^2.0.46",
     "@types/node": "^20.11.0",
