@@ -2,6 +2,7 @@ import { motion } from 'framer-motion';
 import { useSettingsStore } from '@/store/settingsStore';
 import { useProgressStore } from '@/store/progressStore';
 import { ratingService } from '@/services/RatingService';
+import { ScreenHeader } from '@/components/UI/ScreenHeader';
 import styles from './SettingsScreen.module.css';
 
 interface SettingsScreenProps {
@@ -30,34 +31,15 @@ export function SettingsScreen({ onClose }: SettingsScreenProps) {
 
   return (
     <div className={styles.container}>
-      {/* Close Button - top right */}
-      <motion.button
-        className={styles.closeButton}
-        onClick={onClose}
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-      >
-        <img src="/img/back.svg" alt="Close" className={styles.closeIcon} />
-      </motion.button>
+      <ScreenHeader onBackClick={onClose} />
 
       {/* Header */}
-      <motion.div
-        className={styles.header}
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+      <div className={styles.header}>
         <h1 className={styles.title}>Settings</h1>
-      </motion.div>
+      </div>
 
       {/* Content */}
-      <motion.div
-        className={styles.content}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.2, duration: 0.5 }}
-      >
+      <div className={styles.content}>
         {/* Sound Effects Toggle */}
         <div className={styles.setting}>
           <div className={styles.settingInfo}>
@@ -135,7 +117,7 @@ export function SettingsScreen({ onClose }: SettingsScreenProps) {
             Review
           </motion.button>
         </div>
-      </motion.div>
+      </div>
     </div>
   );
 }

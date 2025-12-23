@@ -15,23 +15,17 @@ export function ScreenHeader({ onBackClick }: ScreenHeaderProps) {
       <motion.button
         className={styles.backButton}
         onClick={onBackClick}
-        initial={{ opacity: 0, x: -20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
+        whileHover={{ scale: 1.1 }}
+        whileTap={{ scale: 0.9 }}
       >
         <img src="/img/back.svg" alt="Back" className={styles.backIcon} />
       </motion.button>
 
       {/* Key Count Display - positioned at top right */}
-      <motion.div
-        className={styles.keyCount}
-        initial={{ opacity: 0, x: 20 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+      <div className={styles.keyCount}>
         <img src="/img/key.svg" alt="Keys" className={styles.keyCountIcon} />
         <span className={styles.keyCountNumber}>{totalStars}</span>
-      </motion.div>
+      </div>
     </>
   );
 }
