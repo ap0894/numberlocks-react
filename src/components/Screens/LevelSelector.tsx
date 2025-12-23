@@ -46,33 +46,23 @@ export function LevelSelector({ vaultId, onLevelSelect, onBackClick, onTutorialC
       <ScreenHeader onBackClick={onBackClick} />
 
       {/* Header - centered title */}
-      <motion.div
-        className={styles.header}
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+      <div className={styles.header}>
         <h1 className={styles.title}>{vault.name}</h1>
-      </motion.div>
+      </div>
 
-      <motion.div
-        className={styles.content}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-      >
+      <div className={styles.content}>
         {/* Level Grid */}
         <div className={styles.levelsContainer}>
           <AnimatePresence mode="wait">
             <motion.div
               key={currentPage}
               className={styles.levelsGrid}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.3 }}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.15 }}
             >
-              {currentLevels.map((levelId, index) => {
+              {currentLevels.map((levelId) => {
                 const levelNum = getLevelNumber(levelId);
                 const stars = levelStars[levelId] || 0;
                 const isUnlocked = isLevelUnlocked(levelId);
@@ -88,9 +78,6 @@ export function LevelSelector({ vaultId, onLevelSelect, onBackClick, onTutorialC
                             audioService.playLock();   // locked feedback sound
                         }
                     }}
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.05 }}
                     whileHover={isUnlocked ? { scale: 1.05, y: -5 } : {}}
                     whileTap={isUnlocked ? { scale: 0.95 } : {}}
                   >
@@ -149,7 +136,7 @@ export function LevelSelector({ vaultId, onLevelSelect, onBackClick, onTutorialC
             </button>
           </div>
         )}
-      </motion.div>
+      </div>
 
       {/* Tutorial button - bottom left */}
       {onTutorialClick && (

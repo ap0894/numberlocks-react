@@ -1,6 +1,9 @@
 import { Capacitor } from '@capacitor/core';
-import { InAppReview } from '@capacitor-community/in-app-review';
 import { RATING_CONFIG } from '@/config/analytics.config';
+
+// App Store URLs for rating
+const IOS_APP_STORE_URL = 'https://apps.apple.com/app/id1180420632?action=write-review';
+const ANDROID_PLAY_STORE_URL = 'market://details?id=com.virtualteambuild.numberlocks';
 
 class RatingManager {
   private isNative: boolean;
@@ -64,8 +67,8 @@ class RatingManager {
   }
 
   /**
-   * Request an in-app review
-   * Note: iOS limits how often this can be shown (max 3 times per year)
+   * Request an in-app review by opening the App Store
+   * Opens the native App Store with the review page
    */
   async requestReview() {
     if (!this.isNative) {
@@ -74,16 +77,28 @@ class RatingManager {
     }
 
     try {
-      // Request the native review dialog
-      await InAppReview.requestReview();
+      const platform = Capacitor.getPlatform();
+      let url: string;
+
+      if (platform === 'ios') {
+        url = IOS_APP_STORE_URL;
+      } else if (platform === 'android') {
+        url = ANDROID_PLAY_STORE_URL;
+      } else {
+        console.warn('Unsupported platform for rating:', platform);
+        return;
+      }
+
+      // Open the App Store URL
+      window.open(url, '_blank');
 
       // Mark as prompted
       this.hasPromptedForRating = true;
       this.saveState();
 
-      console.log('Rating prompt shown');
+      console.log('Opened App Store for rating');
     } catch (error) {
-      console.warn('Failed to show rating prompt:', error);
+      console.warn('Failed to open App Store for rating:', error);
     }
   }
 

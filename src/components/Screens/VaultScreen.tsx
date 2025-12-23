@@ -24,30 +24,20 @@ export function VaultScreen({ onVaultSelect, onBackClick, onTutorialClick, onSet
       <ScreenHeader onBackClick={onBackClick} />
 
       {/* Header - centered title */}
-      <motion.div
-        className={styles.header}
-        initial={{ opacity: 0, y: -20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-      >
+      <div className={styles.header}>
         <h1 className={styles.title}>
             Select Vault
           {/*NUM<span className={styles.highlight}>6</span>ER L*/}
           {/*<img className={styles.logo} src="/img/padlocknew.svg" alt="Lock" />*/}
           {/*CKS*/}
         </h1>
-      </motion.div>
+      </div>
 
-      <motion.div
-        className={styles.content}
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ delay: 0.3, duration: 0.5 }}
-      >
+      <div className={styles.content}>
         {/*<h2 className={styles.heading}>Select Vault:</h2>*/}
 
         <div className={styles.vaultsContainer}>
-          {VAULTS.map((vault, index) => {
+          {VAULTS.map((vault) => {
             const isUnlocked = totalStars >= vault.requiredStars || vault.id <= highestVault;
             const isNew = vault.id === highestVault && totalStars >= vault.requiredStars;
 
@@ -57,9 +47,6 @@ export function VaultScreen({ onVaultSelect, onBackClick, onTutorialClick, onSet
                 className={`${styles.vaultButton} ${!isUnlocked ? styles.locked : ''}`}
                 onClick={() => isUnlocked && onVaultSelect(vault.id)}
                 disabled={!isUnlocked}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 + index * 0.1 }}
                 whileHover={isUnlocked ? { scale: 1.05, y: -5 } : {}}
                 whileTap={isUnlocked ? { scale: 0.95 } : {}}
               >
@@ -97,7 +84,7 @@ export function VaultScreen({ onVaultSelect, onBackClick, onTutorialClick, onSet
             );
           })}
         </div>
-      </motion.div>
+      </div>
 
       {/* Tutorial button - bottom left */}
       {onTutorialClick && (
